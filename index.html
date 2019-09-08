@@ -18,6 +18,7 @@
   </head>
   <body>
     <div class="container">
+      <!-- card for a little intro/how to use site text -->
       <h1 class="center-align">Space Chasers</h1>
       <div class="row">
         <div class="col s12 m6">
@@ -34,25 +35,30 @@
               </p>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <form class="col s12">
+          <!-- input row -->
           <div class="row">
-            <div class="input-field col s6">
-              <input
-                placeholder="Placeholder"
-                id="location"
-                type="text"
-                class="validate"
-              >
-              <!-- maybe should be changed to zip code? (so enter numbers) -->
-              <label for="Location">Your Location</label>
-            </div>
-            
-            </div>
+            <form class="col s12">
+              <div class="input-field col s6">
+                <input
+                  placeholder="City"
+                  id="location"
+                  type="text"
+                  class="validate"
+                />
+                <!-- maybe should be changed to zip code? (so enter numbers) we can use character counter for zipcode -->
+                <label for="Location">Your Location</label>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
+        <!-- area that is intended to be the map -->
+        <div class="col s6">
+          <img
+            class="materialboxed"
+            width="650"
+            src="assets/images/illus9.jpg"
+          />
+        </div>
       </div>
     </div>
   </body>
