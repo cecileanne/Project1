@@ -5,7 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="assets/style.css" />
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
     <title>Space Chasers</title>
   </head>
-  <body></body>
+  <body>
+    <div class="container">
+      <h1 class="center-align">Space Chasers</h1>
+      <div class="row">
+        <div class="col s12 m6">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">How to Use</span>
+              <h5>Welcome to Space Chasers!</h5>
+              <p>
+                Here you can find the nearest viewable astronomical event to
+                your location. Right now, only the Aurora Northern Lights are
+                availible. Just enter your location and you will be given your
+                distance from the nearest viewable location as well as peak time
+                for viewing.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s6">
+              <input
+                placeholder="Placeholder"
+                id="location"
+                type="text"
+                class="validate"
+              >
+              <!-- maybe should be changed to zip code? (so enter numbers) -->
+              <label for="Location">Your Location</label>
+            </div>
+            
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>
