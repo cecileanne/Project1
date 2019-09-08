@@ -1,7 +1,15 @@
+// Ready the page
+// Eventually have buttons or a side bar with different searches (eclipses, asteroids, etc)
+
 // Set variables for calculating if one can see the Northern Lights
 // For Northern Lights, we can set the search parameter of a user traveling that day to up to a week from the current date
 // (if we decide on working on eclipses, the search parameters are based on when an eclipse is happening on earth, taken from an API)
-// Where is the user / where will the user be (user input of starting location)
+
+// Event listener - user input on click submit button
+// Save to local storage (no need for cookies or server) - eventually if we have a log in then people could save settings or plan events
+//  Where is the user / where will the user be (user input of starting location)
+//  Date (if not current date), optional
+
 // First determine if it's even possible given the date range (all upcoming kp=0)
 //  Second check - Is there solar flare activity in that two-day range? (take the last active known date, and if it is a multiple of either 27-28 days later this is fulfilled -- get this from an API)
 // What date (or date range) is the user wanting to chase the lights? (user input)
