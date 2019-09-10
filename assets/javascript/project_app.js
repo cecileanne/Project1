@@ -6,11 +6,13 @@ $(document).ready(function() {
   // For Northern Lights, we can set the search parameter of a user traveling that day to up to a week from the current date
   // (if we decide on working on eclipses, the search parameters are based on when an eclipse is happening on earth, taken from an API)
 
-  // Event listener - user input on click submit button
+  // event listener - user input on form submit
   $(document).on("submit", "#cityForm", function() {
     event.preventDefault();
     let citySearch = $("#city").val();
     console.log(citySearch);
+    const location = citySearch;
+    localStorage.setItem("recentLocation", location);
   }); // closes form submit listener
 
   // Save to local storage (no need for cookies or server) - eventually if we have a log in then people could save settings or plan events
