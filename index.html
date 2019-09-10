@@ -19,16 +19,15 @@
     <title>Space Chasers</title>
   </head>
   <body>
-      <nav>
-          <div class="nav-wrapper">
-            <!-- <a href="#" class="brand-logo right">Logo</a> -->
-            <ul id="nav-mobile" class="left hide-on-med-and-down">
-              <li><a href="#">aurora info</a></li>
-              <li><a href="#">k-idex info</a></li>
-              
-            </ul>
-          </div>
-        </nav>
+    <nav>
+      <div class="nav-wrapper">
+        <!-- <a href="#" class="brand-logo right">Logo</a> -->
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+          <li><a href="#">aurora info</a></li>
+          <li><a href="#">k-idex info</a></li>
+        </ul>
+      </div>
+    </nav>
     <div class="container">
       <!-- card for a little intro/how to use site text -->
       <h1 class="center-align">Space Chasers</h1>
@@ -39,8 +38,8 @@
               <span class="card-title">Welcome to Space Chasers!</span>
 
               <p>
-                Here you can find the nearest viewable Aurora Borealis to
-                your location. Just enter your location and you will be given your
+                Here you can find the nearest viewable Aurora Borealis to your
+                location. Just enter your location and you will be given your
                 distance from the nearest viewable location as well as peak time
                 for viewing.
               </p>
@@ -48,7 +47,7 @@
           </div>
           <!-- input row -->
           <div class="row">
-            <form class="col s12">
+            <form id="cityForm" class="col s12">
               <div class="input-field col s6">
                 <input
                   id="city"
@@ -57,25 +56,21 @@
                   class="validate"
                 />
                 <!--submit button -->
-                <div class="btn">
-                  <span>Submit</span>
-                </div>
+                <input class="btn" type="submit" value="submit" />
                 <!-- maybe should be changed to zip code? (so enter numbers) we can use character counter for zipcode -->
                 <label for="Location">Your Location</label>
               </div>
             </form>
           </div>
-        
         </div>
         <!-- area that is intended to be the map -->
         <div class="col s6" id="map">
           <img
-            class="materialboxed"
+            class="materialboxed responsive-img"
             width="400"
             src="assets/images/illus9.jpg"
           />
         </div>
-
       </div>
       <!-- table -->
       <div class="row">
@@ -99,14 +94,19 @@
               <td>placeholder</td>
               <td>placeholder</td>
               <td>placeholder</td>
-              
-            </tr>
-           
             </tr>
           </tbody>
         </table>
       </div>
     </div>
+    <footer class="page-footer">
+      <div class="footer-copyright">
+        <div class="container">
+          © 2019 Copyright Text
+          <a class="grey-text text-lighten-3" href="#!">Aurora Api</a>
+        </div>
+      </div>
+    </footer>
     <script src="./assets/javascript/project_app.js"></script>
   </body>
 </html>
