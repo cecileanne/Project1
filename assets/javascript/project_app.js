@@ -7,7 +7,18 @@ $(document).ready(function() {
   // (if we decide on working on eclipses, the search parameters are based on when an eclipse is happening on earth, taken from an API)
 
   const weatherAPIKey = "743ab863a8fe63b9814fb432f2017098";
-  // weatherURL =
+  recentSearch = localStorage.getItem("recentLocation");
+
+  // loads most recent search on page load? not sure if we want this
+  if (recentSearch !== undefined) {
+    $.ajax({
+      url: `https://api.openweathermap.org/data/2.5/forecast?q=${recentSearch},us&APPID=${weatherAPIKey}`,
+      dataType: "json",
+      type: "GET"
+    }).then(weatherResults => {
+      console.log(weatherResults);
+    });
+  }
 
   // event listener - user input on form submit
   $(document).on("submit", "#cityForm", function() {
