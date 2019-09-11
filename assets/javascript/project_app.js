@@ -6,13 +6,23 @@ $(document).ready(function() {
   // For Northern Lights, we can set the search parameter of a user traveling that day to up to a week from the current date
   // (if we decide on working on eclipses, the search parameters are based on when an eclipse is happening on earth, taken from an API)
 
+  const weatherAPIKey = "743ab863a8fe63b9814fb432f2017098";
+  // weatherURL =
+
   // event listener - user input on form submit
   $(document).on("submit", "#cityForm", function() {
     event.preventDefault();
-    let citySearch = $("#city").val();
-    console.log(citySearch);
-    const location = citySearch;
-    localStorage.setItem("recentLocation", location);
+    const citySearch = $("#city").val();
+    localStorage.setItem("recentLocation", citySearch);
+
+    // 5 day weather forecast,
+    $.ajax({
+      url: `https://api.openweathermap.org/data/2.5/forecast?q=${citySearch},us&APPID=${weatherAPIKey}`,
+      dataType: "json",
+      type: "GET"
+    }).then(weatherResults => {
+      console.log(weatherResults);
+    });
   }); // closes form submit listener
 
   // Save to local storage (no need for cookies or server) - eventually if we have a log in then people could save settings or plan events
