@@ -6,8 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="https://momentjs.com/downloads/moment.min.js"></script>
-
     <!-- <link rel="stylesheet" href="./assets/css/reset.css" /> -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Gruppo|Monoton|Orbitron|Saira+Extra+Condensed&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
@@ -21,7 +24,7 @@
   </head>
   <body>
     <nav>
-      <div class="nav-wrapper deep-purple lighten-3">
+      <div class="nav-wrapper deep-purple lighten-1 teal-text text-lighten-5">
         <!-- <a href="#" class="brand-logo right">Logo</a> -->
         <ul id="nav-mobile" class="left hide-on-med-and-down">
           <li><a href="#">aurora info</a></li>
@@ -29,13 +32,13 @@
         </ul>
       </div>
     </nav>
-    <div class="container">
+    <div class="container purple-text text-darken-4">
       <!-- card for a little intro/how to use site text -->
-      <h1 class="center-align">Space Chasers</h1>
+      <h1 class="left-align">Space Chasers</h1>
       <div class="row">
         <div class="col s12 m6">
-          <div class="card  indigo lighten-5 z-depth-3">
-            <div class="card-content teal-text text-darken-2">
+          <div class="card  teal lighten-5 z-depth-1">
+            <div class="card-content deep-purple-text text-darken-3">
               <span class="card-title">Welcome to Space Chasers!</span>
 
               <p>
@@ -48,26 +51,32 @@
           </div>
           <!-- input row -->
           <div class="row">
-            <form id="cityForm" class="col s12">
-              <div class="input-field col s6">
-                <input
-                  id="city"
-                  placeholder="City"
-                  type="text"
-                  class="validate"
-                />
-                <!--submit button -->
-                <input class="btn" type="submit" value="submit" />
-                <!-- maybe should be changed to zip code? (so enter numbers) we can use character counter for zipcode -->
-                <label for="Location">Your Location</label>
-              </div>
-            </form>
+            <div class="section">
+              <form id="cityForm" class="col s12">
+                <div class="input-field col s6">
+                  <input
+                    id="city"
+                    placeholder="City"
+                    type="text"
+                    class="validate"
+                  />
+                  <!--submit button -->
+                  <input
+                    class="btn blue lighten-2"
+                    type="submit"
+                    value="submit"
+                  />
+                  <!-- maybe should be changed to zip code? (so enter numbers) we can use character counter for zipcode -->
+                  <label for="Location">Your Location</label>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
         <!-- area that is intended to be the map -->
         <div class="col s6" id="map">
           <img
-            class="materialboxed responsive-img"
+            class=" responsive-img right"
             width="400"
             src="assets/images/map.png"
           />
@@ -100,11 +109,11 @@
         </table>
       </div>
     </div>
-    <footer class="page-footer deep-purple lighten-4">
-      <div class="footer-copyright">
+    <footer class="page-footer deep-purple lighten-2">
+      <div class="footer-copyright center-align">
         <div class="container">
           © 2019 Copyright Text
-          <a class="grey-text text-lighten-3" href="#!">Aurora Api</a>
+          <a class="teal-text text-lighten-5" href="#!">Aurora Api</a>
         </div>
       </div>
     </footer>
