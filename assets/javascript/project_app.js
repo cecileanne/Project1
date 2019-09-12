@@ -11,8 +11,9 @@ $(document).ready(function() {
 
   // loads most recent search on page load? not sure if we want this
   if (recentSearch !== undefined) {
+    const weatherURL = `https://api.openweathermap.org/data/2.5/forecast?zip=${recentSearch},us&APPID=${weatherAPIKey}`;
     $.ajax({
-      url: `https://api.openweathermap.org/data/2.5/forecast?q=${recentSearch},us&APPID=${weatherAPIKey}`,
+      url: weatherURL,
       dataType: "json",
       type: "GET"
     }).then(weatherResults => {
@@ -27,8 +28,9 @@ $(document).ready(function() {
     localStorage.setItem("recentLocation", citySearch);
 
     // 5 day weather forecast,
+    const weatherURL = `https://api.openweathermap.org/data/2.5/forecast?zip=${citySearch},us&APPID=${weatherAPIKey}`;
     $.ajax({
-      url: `https://api.openweathermap.org/data/2.5/forecast?q=${citySearch},us&APPID=${weatherAPIKey}`,
+      url: weatherURL,
       dataType: "json",
       type: "GET"
     }).then(weatherResults => {
