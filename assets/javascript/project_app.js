@@ -6,9 +6,36 @@ $(document).ready(function() {
   // DO NOT NEED - For Northern Lights, we can set the search parameter of a user traveling that day to up to a week from the current date
   // DO NOT NEED NOW - (if we decide on working on eclipses, the search parameters are based on when an eclipse is happening on earth, taken from an API)
 
-  // Event listener - user input on click submit button
+  const weatherAPIKey = "743ab863a8fe63b9814fb432f2017098";
+  recentSearch = localStorage.getItem("recentLocation");
+
+  // loads most recent search on page load? not sure if we want this
+  if (recentSearch !== undefined) {
+    $.ajax({
+      url: `https://api.openweathermap.org/data/2.5/forecast?q=${recentSearch},us&APPID=${weatherAPIKey}`,
+      dataType: "json",
+      type: "GET"
+    }).then(weatherResults => {
+      console.log(weatherResults);
+    });
+  }
+
+  // event listener - user input on form submit
   $(document).on("submit", "#cityForm", function() {
     event.preventDefault();
+
+    const citySearch = $("#city").val();
+    localStorage.setItem("recentLocation", citySearch);
+
+    // 5 day weather forecast,
+    $.ajax({
+      url: `https://api.openweathermap.org/data/2.5/forecast?q=${citySearch},us&APPID=${weatherAPIKey}`,
+      dataType: "json",
+      type: "GET"
+    }).then(weatherResults => {
+      console.log(weatherResults);
+    });
+
     let citySearch = $("#city").val();
     console.log(citySearch);
 
@@ -33,6 +60,7 @@ $(document).ready(function() {
         console.log(results);
       }); //closes .then
     }); // closes searchAroraLive
+
   }); // closes form submit listener
 
   // TO DO Create a for loop where AuroraLive does the search for latitude-10 (10 degrees north) until it hits the north pole and longitude truncated to 1 decimal point
