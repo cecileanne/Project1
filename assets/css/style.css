@@ -2,29 +2,29 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  background-image: linear-gradient(to bottom right, #b388ff, #a7ffeb);
-  /* background-image: url("../images/aurora-borealis-2.png"); */
+  background-image: linear-gradient(to bottom right, #b388ff, #a7ffeb, #b388ff);
 }
 
 h1 {
-  /* font-family: 'Monoton', cursive; */
-  /* font-family: 'Saira Extra Condensed', sans-serif; */
-  /* font-family: "Orbitron", sans-serif; */
-  font-family: "Gruppo", cursive;
+  font-family: "Monoton", cursive;
 
   padding: 20px 0px;
 }
 main {
   flex: 1 0 auto;
 }
+table,
+.card-title,
+p,
+nav,
+footer {
+  font-family: "Gruppo", cursive;
+}
 .page-footer {
   padding-top: 0px;
   min-height: 70px;
 }
-/* not doing what I want!
- .footer-copyright {
-  background-color: #d1c4e9;
-} */
+
 /* label color */
 .input-field label {
   color: #6200ea;
@@ -43,7 +43,6 @@ main {
 /* valid color */
 .input-field input[type="text"].valid {
   border-bottom: 1px solid #1de9b6;
-  box-shadow: 0 1px 0 0 #000;
 }
 /* invalid color */
 .input-field input[type="text"].invalid {
