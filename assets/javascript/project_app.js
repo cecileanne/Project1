@@ -7,18 +7,6 @@ $(document).ready(function() {
   // DO NOT NEED NOW - (if we decide on working on eclipses, the search parameters are based on when an eclipse is happening on earth, taken from an API)
 
   const weatherAPIKey = "743ab863a8fe63b9814fb432f2017098";
-  recentSearch = localStorage.getItem("recentLocation");
-
-  // loads most recent search on page load? not sure if we want this
-  if (recentSearch !== undefined) {
-    $.ajax({
-      url: `https://api.openweathermap.org/data/2.5/forecast?q=${recentSearch},us&APPID=${weatherAPIKey}`,
-      dataType: "json",
-      type: "GET"
-    }).then(weatherResults => {
-      console.log(weatherResults);
-    });
-  }
 
   // event listener - user input on form submit
   $(document).on("submit", "#cityForm", function() {
@@ -27,40 +15,41 @@ $(document).ready(function() {
     const citySearch = $("#city").val();
     localStorage.setItem("recentLocation", citySearch);
 
+    let weatherData = "";
+    let cityLat = "";
+    let cityLon = "";
     // 5 day weather forecast,
+    const weatherQueryURL = `https://api.openweathermap.org/data/2.5/forecast?zip=${citySearch},us&APPID=${weatherAPIKey}`;
     $.ajax({
-      url: `https://api.openweathermap.org/data/2.5/forecast?q=${citySearch},us&APPID=${weatherAPIKey}`,
+      url: weatherQueryURL,
       dataType: "json",
       type: "GET"
-    }).then(weatherResults => {
-      console.log(weatherResults);
-    });
+    })
+      .then(weatherResults => {
+        weatherData = weatherResults;
+        cityLat = weatherData.city.coord.lat;
+        cityLon = weatherData.city.coord.lon;
+        // console.log(latitude, longitude);
+        // console.log(weatherData);
+      })
+      .then(function() {
+        // Save to local storage (no need for cookies or server) - eventually if we have a log in then people could save settings or plan events
+        //  Where is the user / where will the user be (user input of starting location)
+        //  Date (if not current date), optional
 
-    let citySearch = $("#city").val();
-    console.log(citySearch);
+        // TO DO - Pull the data from the form use the google API to put that location into latitude and longitude
+        // TO DECIDE - Display that latitude (number with five decimal points) and longitude for the user?
 
-    // Save to local storage (no need for cookies or server) - eventually if we have a log in then people could save settings or plan events
-    //  Where is the user / where will the user be (user input of starting location)
-    //  Date (if not current date), optional
-
-    // TO DO - Pull the data from the form use the google API to put that location into latitude and longitude
-    // TO DECIDE - Display that latitude (number with five decimal points) and longitude for the user?
-
-    $("#runAJAX").on("submit", "#cityForm", function(searchAuroraLive) {
-      event.preventDefault();
-      let latitude = $("#googleLatitude").val();
-      let longitude = $("#googleLongitude").val();
-      queryURL = `https://api.auroras.live/v1/?type=all&lat=${latitude}&long=${longitude}&forecast=false&threeday=false`;
-      console.log("working...");
-      $.ajax({
-        url: queryURL,
-        method: "GET"
-      }).then(function(response) {
-        let results = probability.highest.value;
-        console.log(results);
-      }); //closes .then
-    }); // closes searchAroraLive
-
+        auroraQueryURL = `https://api.auroras.live/v1/?type=all&lat=${cityLat}&long=${cityLon}&forecast=false&threeday=false`;
+        // console.log("working...");
+        $.ajax({
+          url: auroraQueryURL,
+          method: "GET"
+        }).then(auroraResults => {
+          let probability = auroraResults.probability.highest.value;
+          console.log(`probability is ${probability}%`);
+        }); //closes aurora .then
+      }); // closes weather .then
   }); // closes form submit listener
 
   // TO DO Create a for loop where AuroraLive does the search for latitude-10 (10 degrees north) until it hits the north pole and longitude truncated to 1 decimal point
