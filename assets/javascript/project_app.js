@@ -286,13 +286,16 @@ $(document).ready(function() {
     },
     { name: "Wimberley Valley, TX", latitude: 29.9888, longitude: -98.4681 },
     { name: "Westcliffe, CO", latitude: 38.1353, longitude: -105.4733 },
-
     {
       name: "Wupatki National Monument",
-      latitude: 38.1353,
-      longitude: -105.4733
+      latitude: 35.5587,
+      longitude: -111.3752
     }
   ];
+
+  darkSkyPlaces.forEach(element => {
+    console.log(`lat:${element.latitude}, lon:${element.longitude}`);
+  });
   // Event listener - user input on click submit button
   $(document).on("submit", "#cityForm", function() {
     event.preventDefault();
