@@ -35,10 +35,13 @@
       </div>
     </nav>
     <div class="container purple-text text-darken-4">
-      <!-- card for a little intro/how to use site text------------------------------------ -->
+      <!-- -----header--------------------------------------------------------------------------- -->
       <h1 class="left-align">Space Chasers</h1>
       <div class="row">
         <div class="col s12 m6">
+          <!-- ---directions and info fo user after the table has been populated and an item clicked -->
+          <div id="selectedLocale"></div>
+          <!-- card for a little intro/how to use site text------------------------------------ -->
           <div class="card  teal lighten-5 z-depth-1">
             <div class="card-content deep-purple-text text-darken-5">
               <span class="card-title">Welcome to Space Chasers!</span>
@@ -47,7 +50,11 @@
                 Here you can find the nearest viewable Aurora Borealis to your
                 location. Just enter your location and you will be given your
                 distance from the nearest viewable location as well as peak time
-                for viewing.
+                for viewing. If you live near big cities you will have problems
+                with light pollution(the east coast and midwest will have the
+                toughest time). You should be prepared to plan a trip and check the
+                best times to view the Aurora the day before and the day of the
+                trip.
               </p>
             </div>
           </div>
@@ -64,11 +71,10 @@
                   />
 
                   <!--submit button -------------------------------------------------------------->
-                  <input
-                    class="btn blue lighten-2"
-                    type="submit"
-                    value="submit"
-                  />
+                  <button class="btn waves-effect waves-light blue lighten-2" type="submit" name="action">Submit
+                  
+                    </button>
+                
                   <!-- -----we can use character counter for zipcode ------------------------------->
                   <label for="Location">Your Location</label>
                 </div>
@@ -89,10 +95,11 @@
       <!-- <div class="progress">
           <div class="determinate" style="width: 70%"></div>
       </div> -->
-      <!-- -------------------------------table------------------------------------------------ -->
       <div class="row">
-        <div class="transparent">
-          <table class="highlight responsive-table ">
+        <!-- -----------id to put the text to explain long travel times--------------------------->
+        <div id="distanceExplaination"></div>
+          <!-- -------------------------------table------------------------------------------------ -->
+          <table class="highlight responsive-table "></div>
             <thead>
               <tr>
                 <th>Location</th>
@@ -115,7 +122,7 @@
               </tr>
             </tbody>
           </table>
-        </div>
+        
       </div>
     </div>
     <!-- ---------------------------------footer-------------------------------------------- -->

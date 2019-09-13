@@ -15,10 +15,13 @@ main {
 }
 table,
 .card-title,
-p,
+/* p, */
 nav,
 footer {
   font-family: "Gruppo", cursive;
+}
+tbody {
+  color: #f50057;
 }
 .page-footer {
   padding-top: 0px;
@@ -34,8 +37,9 @@ footer {
   color: #f48fb1;
 }
 ::placeholder {
-  color: #e0f2f1;
+  color: #ea80fc;
 }
+
 /* label underline focus color */
 .input-field input[type="text"] {
   border-bottom: 1px solid #6200ea;
