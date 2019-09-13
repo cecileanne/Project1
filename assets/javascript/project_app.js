@@ -86,12 +86,34 @@ $(document).ready(function() {
   //  If it's a matter of weather: Sorry, it's not a great idea to make the trip from {userLocation} because it won't be clear enough. (But still give a list of 10 possible locations+dates+times)
 
   // Table display: You can view the Northern Lights here:
+  const row = $("<tr>");
   //  City
-  //  Distance from start location
-  //  Best date
-  //  Best time
-  //  Percentage of Probability
+  const location = $("<td>");
+  location.text(); //location variable
+  row.append(location);
 
+  //  Distance from start location
+  const distanceFromStart = $("<td>");
+  distanceFromStart.text(); //distanceFromStart variable
+  row.append(distanceFromStart);
+
+  //viewing probablity
+  const viewProbability = $("<td>");
+  viewProbability.text(); //viewProbability variable
+  row.append(viewProbability);
+  //  sunset
+  const sunset = $("<td>");
+  sunset.text(); //sunset variable
+  row.append(sunset);
+  //  sunrise
+  const sunrise = $("<td>");
+  sunrise.text(); //sunrise variable
+  row.append(sunrise);
+  //  Best time
+  const bestTime = $("<td>");
+  bestTime.text(); //bestTime variable
+  row.append(bestTime);
+  $("tbody").append(row);
   // When a user clicks on a result in the list - map updates with driving directions
   // Eventually there could be a search and highlight on map of dark areas (see how Google categorizes locations - parks, forest, fields or find another API)
   // Eventually for each city result, we could print to a card a deeper dive into that city's percentage of probability for the date plus/(minus if possible given current date) 3 days
