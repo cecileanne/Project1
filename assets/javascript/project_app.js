@@ -114,7 +114,14 @@ $(document).ready(function() {
   bestTime.text(); //bestTime variable
   row.append(bestTime);
   $("tbody").append(row);
-  // When a user clicks on a result in the list - map updates with driving directions
+  // When a user clicks on a result in the list - card is replaced with #selectedLocale
+  $("<tr>").on("click", function() {
+    $("#selectedLocale").append("Location: " + location);
+    $("#selectedLocale").append("Viewing Probability: " + viewProbability);
+    $("#selectedLocale").append("Best Viewing Time: " + bestTime);
+    $("#selectedLocale").append("Directions: " + directions); //or whatever variable needed
+    //- map updates with driving directions
+  });
   // Eventually there could be a search and highlight on map of dark areas (see how Google categorizes locations - parks, forest, fields or find another API)
   // Eventually for each city result, we could print to a card a deeper dive into that city's percentage of probability for the date plus/(minus if possible given current date) 3 days
 }); // closes $(document).ready
