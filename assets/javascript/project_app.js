@@ -344,6 +344,60 @@ $(document).ready(function() {
       }); // closes weather .then
   }); // closes form submit listener
 
+  // Setting up the Leaflet Map (Evanston starting point, zoom at 13)
+  var mymap = L.map("mapid").setView([42.0451, -87.6877], 13);
+  // mapbox is the tiling we will use with leaflet, Cecile's key is pk.eyJ1IjoiY2VjaWxlYW5uZXNpc29uIiwiYSI6ImNrMGpxbG5taTA5cnAzYm90dHBwbHM0bmsifQ.S8GKddmQ1_kd1f_gRBt7yQ
+  // Adding a tile layer to the map:
+  L.tileLayer(
+    "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
+    {
+      attribution:
+        'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 18,
+      id: "mapbox.streets",
+      accessToken:
+        "pk.eyJ1IjoiY2VjaWxlYW5uZXNpc29uIiwiYSI6ImNrMGpxbG5taTA5cnAzYm90dHBwbHM0bmsifQ.S8GKddmQ1_kd1f_gRBt7yQ"
+    }
+  ).addTo(mymap);
+
+  // Taking the new array of objects that have a probability over an amount (to be set after testing) and the weather, these are the latitudes and longitudes to run
+  afterWeatherLat = element.coord.lat;
+  afterWeatherLon = element.coord.lat;
+
+  // Look at this in comparison to above XML since
+  afterWeatherArray.forEach(element => {});
+
+  // // DECIDED NOT TO DO THIS: For Each of the probable latitudes, run the boolean "reachable" against the user input
+  // // Cecile's openrouteservice key 5b3ce3597851110001cf6248aca18772dbdd4d4ca8e01a6717082039
+  // // reachabilityURL = `https:// api.openrouteservice.org /v2/isochrones/driving-car`
+  // // This is a copy paste from
+  // let request = new XMLHttpRequest();
+  // request.open(
+  //   "POST",
+  //   "https://api.openrouteservice.org/v2/isochrones/driving-car"
+  // );
+  // request.setRequestHeader(
+  //   "Accept",
+  //   "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8"
+  // );
+  // request.setRequestHeader(
+  //   "Authorization",
+  //   "5b3ce3597851110001cf6248aca18772dbdd4d4ca8e01a6717082039"
+  // );
+  // request.onreadystatechange = function() {
+  //   if (this.readyState === 4) {
+  //     console.log("Status:", this.status);
+  //     console.log("Headers:", this.getAllResponseHeaders());
+  //     console.log("Body:", this.responseText);
+  //   }
+  // };
+  // const body =
+  //   '{"locations":[[{cityLat},{cityLon}],[afterWeatherLat,afterWeatherLon]],"range":[{sunset.format("HH:MM")+02:00-moment.format("HH:MM")},1500000]}';
+  // request.send(body);
+  // //   const body =
+  // //   '{"locations":[[8.681495,49.41461],[8.686507,49.41943]],"range":[300,200]}';
+  // // request.send(body);
+
   // TO DO Create a for loop where AuroraLive does the search for latitude-10 (10 degrees north) until it hits the north pole and longitude truncated to 1 decimal point
   // TO DO if there is a result for which the probability is over 75%, these latitude/longitudinal pairs get put into objects
 
