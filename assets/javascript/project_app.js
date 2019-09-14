@@ -362,10 +362,18 @@ $(document).ready(function() {
 
   // Taking the new array of objects that have a probability over an amount (to be set after testing) and the weather, these are the latitudes and longitudes to run
   afterWeatherLat = element.coord.lat;
-  afterWeatherLon = element.coord.lat;
+  afterWeatherLon = element.coord.lon;
 
-  // Look at this in comparison to above XML since
-  afterWeatherArray.forEach(element => {});
+  // For each THIS SHOULD BE PUT UNDER WEATHER API
+  // afterWeatherArray.forEach(element => {
+  const firstLatLng = [cityLat, cityLon];
+  const secondLatLng = [afterWeatherLat, afterWeatherLon];
+
+  function distanceCalculator() {
+    distance = L.GeometryUtil.distance(firstLatLng, secondLatLng);
+    // document.getElementById('distance').innerHTML = distance;
+    console.log(distance);
+  }
 
   // // DECIDED NOT TO DO THIS: For Each of the probable latitudes, run the boolean "reachable" against the user input
   // // Cecile's openrouteservice key 5b3ce3597851110001cf6248aca18772dbdd4d4ca8e01a6717082039
@@ -398,8 +406,8 @@ $(document).ready(function() {
   // //   '{"locations":[[8.681495,49.41461],[8.686507,49.41943]],"range":[300,200]}';
   // // request.send(body);
 
-  // TO DO Create a for loop where AuroraLive does the search for latitude-10 (10 degrees north) until it hits the north pole and longitude truncated to 1 decimal point
-  // TO DO if there is a result for which the probability is over 75%, these latitude/longitudinal pairs get put into objects
+  // DO NOT NEED Create a for loop where AuroraLive does the search for latitude-10 (10 degrees north) until it hits the north pole and longitude truncated to 1 decimal point
+  // DO NOT NEED if there is a result for which the probability is over 75%, these latitude/longitudinal pairs get put into objects
 
   // DO NOT NEED - First determine if it's even possible given the date range (all upcoming kp=0)
   // DO NOT NEED - Second check - Is there solar flare activity in that two-day range? (take the last active known date, and if it is a multiple of either 27-28 days later this is fulfilled -- get this from an API)
