@@ -3,8 +3,9 @@ body {
   min-height: 100vh;
   flex-direction: column;
   /* background-image: linear-gradient(to bottom right, #b388ff, #a7ffeb, #b388ff); */
-  background-image: url(../images/aurora-borealis-7.png);
-  /* background-image: url(../images/aurora-borealis-4.png); */
+  /* background-image: url(../images/aurora-borealis-7.png); */
+
+  background-image: url(../images/aurora-borealis-5-3.png);
   /* background-image: url(../images/aurora-borealis-5-2.png); */
 }
 
@@ -30,14 +31,14 @@ footer {
 color: #f50057; */
 /* }  */
 
-div.transbox {
+/* div.transbox {
   background-color: #ffffff;
   opacity: 0.5;
   filter: alpha(opacity=60); /* For IE8 and earlier */
 
-  background: left top no-repeat;
-  box-shadow: -25px -25px 50px 0 white inset, 25px 25px 50px 0 white inset;
-}
+/* background: left top no-repeat;
+  box-shadow: 70px 70px 50px 0 white inset, -75px -75px 50px 0 white inset; */
+/* }  */
 .page-footer {
   padding-top: 0px;
   min-height: 70px;
