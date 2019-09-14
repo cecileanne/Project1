@@ -4,7 +4,6 @@ body {
   flex-direction: column;
 
   background-image: url(../images/aurora-borealis-5-3.png);
-  /* background-image: url(../images/aurora-borealis-5-2.png); */
 }
 
 h1 {
@@ -23,11 +22,6 @@ footer {
   font-family: "Gruppo", cursive;
 }
 
-/* div.transbox {
-  background-color: #ffffff;
-  opacity: 0.5;
-  filter: alpha(opacity=60); /* For IE8 and earlier */
-/* } */
 #mapid {
   width: 100%;
   height: 370px;
@@ -43,7 +37,6 @@ footer {
 /* label color */
 .input-field label {
   color: white;
-  /* color: #6200ea; */
 }
 /* label focus color */
 .input-field input[type="text"]:focus + label {
