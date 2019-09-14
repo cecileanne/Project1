@@ -4,6 +4,7 @@ body {
   flex-direction: column;
 
   background-image: url(../images/aurora-borealis-5-3.png);
+  background-attachment: fixed;
 }
 
 h1 {
