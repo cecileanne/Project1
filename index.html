@@ -24,6 +24,20 @@
     crossorigin=""
     />
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <!--  Link to Leaflet -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin=""
+    />
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script
+      src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+      integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+      crossorigin=""
+    ></script>
 
   <!-- Make sure you put this AFTER Leaflet's CSS -->
   <script
@@ -97,21 +111,28 @@
                     class="validate"
                   />
 
+
                   <!--submit button -------------------------------------------------------------->
                   <button class="btn waves-effect waves-light cyan accent-3" type="submit" name="action">Submit
                   
                     </button>
                 
                   <!-- -----we can use character counter for zipcode ------------------------------->
+
+                 
+
                   <label for="Location">Your Location</label>
                 </div>
               </form>
             </div>
           </div>
         </div>
+
         <!-- -------------------------------area that is intended to be the map-------------- -->
         <div class="col s6 " id="map">
             <div id="mapid" class="right"></div>
+
+
       </div>
       <!-- -------------------------PROGRESS BAR ---------------------------------------------->
       <!-- <div class="progress">

@@ -61,3 +61,8 @@ footer {
 .input-field input[type="text"].invalid {
   border-bottom: 1px solid #f50057;
 }
+
+#mapid {
+  width: 350px;
+  height: 350px;
+}
