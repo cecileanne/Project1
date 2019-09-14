@@ -259,18 +259,29 @@ $(document).ready(function() {
             }).then(userWeather => {
               const cityLat = userWeather.city.coord.lat;
               const cityLon = userWeather.city.coord.lon;
-              const objectLat = element.latitude;
-              const objectLon = element.longitude;
-              const firstLatLng = [{ cityLat, cityLon }];
-              const secondLatLng = [{ objectLat, objectLon }];
-
-              // function distanceCalculator() {
-              const distance = L.GeometryUtil.distance(
-                firstLatLng,
-                secondLatLng
-              );
+              // console.log(cityLat + "citylat");
+              // console.log(cityLon + "citylon");
+              // console.log(element.latitude + "elemlat");
+              // console.log(element.longitude + "elemlon");
+              // console.log(directionResults);
+              $.ajax({
+                url: `https://api.mapbox.com/directions/v5/mapbox/driving/${cityLon},${cityLat};${element.longitude},${element.latitude}?access_token=pk.eyJ1IjoiY2VjaWxlYW5uZXNpc29uIiwiYSI6ImNrMGpxbG5taTA5cnAzYm90dHBwbHM0bmsifQ.S8GKddmQ1_kd1f_gRBt7yQ`
+              }).then(directionResults => {
+                console.log(cityLat + "citylat");
+                console.log(cityLon + "citylon");
+                console.log(element.latitude + "elemlat");
+                console.log(element.longitude + "elemlon");
+                console.log(directionResults);
+              });
+              // const _firstLatLng = [{ cityLat, cityLon }];
+              // const _secondLatLng = [{ objectLat, objectLon }];
+              // // function distanceCalculator() {
+              // const distance = L.GeometryUtil.distance(
+              //   _firstLatLng,
+              //   _secondLatLng
+              // );
               // document.getElementById('distance').innerHTML = distance;
-              console.log(`distance: ${distance}`);
+              // console.log(`distance: ${distance}`);
               // }
             });
           }
