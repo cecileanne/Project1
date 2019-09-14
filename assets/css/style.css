@@ -39,6 +39,10 @@ color: #f50057; */
 /* background: left top no-repeat;
   box-shadow: 70px 70px 50px 0 white inset, -75px -75px 50px 0 white inset; */
 /* }  */
+#mapid {
+  width: 350px;
+  height: 350px;
+}
 .page-footer {
   padding-top: 0px;
   min-height: 70px;
