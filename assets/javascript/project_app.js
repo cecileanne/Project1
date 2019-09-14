@@ -270,36 +270,20 @@ $(document).ready(function() {
     } // closes isLoading conditional
   }); // closes form submit listener
 
-  // Setting up the Leaflet Map (Evanston starting point, zoom at 13)
-  var mymap = L.map("mapid").setView([42.0451, -87.6877], 13);
-  // mapbox is the tiling we will use with leaflet, Cecile's key is pk.eyJ1IjoiY2VjaWxlYW5uZXNpc29uIiwiYSI6ImNrMGpxbG5taTA5cnAzYm90dHBwbHM0bmsifQ.S8GKddmQ1_kd1f_gRBt7yQ
-  // Adding a tile layer to the map:
-  L.tileLayer(
-    "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
-    {
-      attribution:
-        'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-      maxZoom: 18,
-      id: "mapbox.streets",
-      accessToken:
-        "pk.eyJ1IjoiY2VjaWxlYW5uZXNpc29uIiwiYSI6ImNrMGpxbG5taTA5cnAzYm90dHBwbHM0bmsifQ.S8GKddmQ1_kd1f_gRBt7yQ"
-    }
-  ).addTo(mymap);
+  // // Taking the new array of objects that have a probability over an amount (to be set after testing) and the weather, these are the latitudes and longitudes to run
+  // afterWeatherLat = element.coord.lat;
+  // afterWeatherLon = element.coord.lon;
 
-  // Taking the new array of objects that have a probability over an amount (to be set after testing) and the weather, these are the latitudes and longitudes to run
-  afterWeatherLat = element.coord.lat;
-  afterWeatherLon = element.coord.lon;
+  // // For each THIS SHOULD BE PUT UNDER WEATHER API
+  // // afterWeatherArray.forEach(element => {
+  // const firstLatLng = [cityLat, cityLon];
+  // const secondLatLng = [afterWeatherLat, afterWeatherLon];
 
-  // For each THIS SHOULD BE PUT UNDER WEATHER API
-  // afterWeatherArray.forEach(element => {
-  const firstLatLng = [cityLat, cityLon];
-  const secondLatLng = [afterWeatherLat, afterWeatherLon];
-
-  function distanceCalculator() {
-    distance = L.GeometryUtil.distance(firstLatLng, secondLatLng);
-    // document.getElementById('distance').innerHTML = distance;
-    console.log(distance);
-  }
+  // function distanceCalculator() {
+  //   distance = L.GeometryUtil.distance(firstLatLng, secondLatLng);
+  //   // document.getElementById('distance').innerHTML = distance;
+  //   console.log(distance);
+  // }
 
   // // DECIDED NOT TO DO THIS: For Each of the probable latitudes, run the boolean "reachable" against the user input
   // // Cecile's openrouteservice key 5b3ce3597851110001cf6248aca18772dbdd4d4ca8e01a6717082039
