@@ -223,8 +223,6 @@ $(document).ready(function() {
       console.log(isLoading);
       let loadCount = 0;
       darkSkyPlaces.forEach(element => {
-        cityLat = "";
-        cityLon = "";
         // Save to local storage (no need for cookies or server) - eventually if we have a log in then people could save settings or plan events
         //  Where is the user / where will the user be (user input of starting location)
         //  Date (if not current date), optional
@@ -247,7 +245,7 @@ $(document).ready(function() {
               type: "GET"
             }).then(weatherResults => {
               loadCount++;
-              console.log(`loadCount:${loadCount}`);
+
               console.log(weatherResults);
               if (loadCount >= darkSkyPlaces.length) {
                 isLoading = false;
@@ -259,10 +257,21 @@ $(document).ready(function() {
               dataType: "json",
               type: "GET"
             }).then(userWeather => {
-              cityLat = userWeather.city.coord.lat;
-              cityLon = userWeather.city.coord.lon;
-              console.log(cityLat);
-              console.log(cityLon);
+              const cityLat = userWeather.city.coord.lat;
+              const cityLon = userWeather.city.coord.lon;
+              const objectLat = element.latitude;
+              const objectLon = element.longitude;
+              const firstLatLng = [{ cityLat, cityLon }];
+              const secondLatLng = [{ objectLat, objectLon }];
+
+              // function distanceCalculator() {
+              const distance = L.GeometryUtil.distance(
+                firstLatLng,
+                secondLatLng
+              );
+              // document.getElementById('distance').innerHTML = distance;
+              console.log(`distance: ${distance}`);
+              // }
             });
           }
         }); //closes aurora .then
@@ -273,17 +282,6 @@ $(document).ready(function() {
   // // Taking the new array of objects that have a probability over an amount (to be set after testing) and the weather, these are the latitudes and longitudes to run
   // afterWeatherLat = element.coord.lat;
   // afterWeatherLon = element.coord.lon;
-
-  // // For each THIS SHOULD BE PUT UNDER WEATHER API
-  // // afterWeatherArray.forEach(element => {
-  // const firstLatLng = [cityLat, cityLon];
-  // const secondLatLng = [afterWeatherLat, afterWeatherLon];
-
-  // function distanceCalculator() {
-  //   distance = L.GeometryUtil.distance(firstLatLng, secondLatLng);
-  //   // document.getElementById('distance').innerHTML = distance;
-  //   console.log(distance);
-  // }
 
   // // DECIDED NOT TO DO THIS: For Each of the probable latitudes, run the boolean "reachable" against the user input
   // // Cecile's openrouteservice key 5b3ce3597851110001cf6248aca18772dbdd4d4ca8e01a6717082039
