@@ -2,12 +2,16 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  background-image: linear-gradient(to bottom right, #b388ff, #a7ffeb, #b388ff);
+  /* background-image: linear-gradient(to bottom right, #b388ff, #a7ffeb, #b388ff); */
+  background-image: url(../images/aurora-borealis-7.png);
+  /* background-image: url(../images/aurora-borealis-4.png); */
+  /* background-image: url(../images/aurora-borealis-5-2.png); */
 }
 
 h1 {
   font-family: "Monoton", cursive;
-
+  color: #e0f2f1;
+  /* color: #ede7f6; */
   padding: 20px 0px;
 }
 main {
@@ -20,8 +24,19 @@ nav,
 footer {
   font-family: "Gruppo", cursive;
 }
-tbody {
-  color: #f50057;
+/* tbody {
+  /* color: #f0f4c3; */
+/* 
+color: #f50057; */
+/* }  */
+
+div.transbox {
+  background-color: #ffffff;
+  opacity: 0.5;
+  filter: alpha(opacity=60); /* For IE8 and earlier */
+
+  background: left top no-repeat;
+  box-shadow: -25px -25px 50px 0 white inset, 25px 25px 50px 0 white inset;
 }
 .page-footer {
   padding-top: 0px;
@@ -30,26 +45,26 @@ tbody {
 
 /* label color */
 .input-field label {
-  color: #6200ea;
+  color: white;
+  /* color: #6200ea; */
 }
 /* label focus color */
 .input-field input[type="text"]:focus + label {
-  color: #f48fb1;
+  color: white;
 }
 ::placeholder {
-  color: #ea80fc;
+  color: white;
 }
 
 /* label underline focus color */
 .input-field input[type="text"] {
-  border-bottom: 1px solid #6200ea;
+  border-bottom: 1px solid white;
 }
 /* valid color */
 .input-field input[type="text"].valid {
-  border-bottom: 1px solid #1de9b6;
+  border-bottom: 1px solid white;
 }
 /* invalid color */
 .input-field input[type="text"].invalid {
   border-bottom: 1px solid #f50057;
-  box-shadow: 0 1px 0 0 #000;
 }
