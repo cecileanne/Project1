@@ -5,7 +5,21 @@ $(document).ready(function() {
   // DO NOT NEED - Set variables for calculating if one can see the Northern Lights
   // DO NOT NEED - For Northern Lights, we can set the search parameter of a user traveling that day to up to a week from the current date
   // DO NOT NEED NOW - (if we decide on working on eclipses, the search parameters are based on when an eclipse is happening on earth, taken from an API)
-
+  // Setting up the Leaflet Map (Evanston starting point, zoom at 13)
+  var mymap = L.map("mapid").setView([42.0451, -87.6877], 13);
+  // mapbox is the tiling we will use with leaflet, Cecile's key is pk.eyJ1IjoiY2VjaWxlYW5uZXNpc29uIiwiYSI6ImNrMGpxbG5taTA5cnAzYm90dHBwbHM0bmsifQ.S8GKddmQ1_kd1f_gRBt7yQ
+  // Adding a tile layer to the map:
+  L.tileLayer(
+    "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
+    {
+      attribution:
+        'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 18,
+      id: "mapbox.streets",
+      accessToken:
+        "pk.eyJ1IjoiY2VjaWxlYW5uZXNpc29uIiwiYSI6ImNrMGpxbG5taTA5cnAzYm90dHBwbHM0bmsifQ.S8GKddmQ1_kd1f_gRBt7yQ"
+    }
+  ).addTo(mymap);
   // Event listener - user input on click submit button
   $(document).on("submit", "#cityForm", function() {
     event.preventDefault();
