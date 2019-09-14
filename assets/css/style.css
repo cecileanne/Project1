@@ -33,6 +33,9 @@ footer {
   padding-top: 0px;
   min-height: 70px;
 }
+.dropdown-trigger {
+  margin-left: 20px;
+}
 
 /* label color */
 .input-field label {

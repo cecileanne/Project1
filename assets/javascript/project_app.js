@@ -1,5 +1,7 @@
 // Ready the page
 $(document).ready(function() {
+  //FOR NAVBAR DROPDOW---------------------------------------------------------------------------------------
+  $(".dropdown-trigger").dropdown();
   // Eventually have buttons or a side bar with different searches (eclipses, asteroids, etc)
 
   // DO NOT NEED - Set variables for calculating if one can see the Northern Lights
