@@ -391,37 +391,8 @@ $(document).ready(function() {
   //  If the solar flare activity is low: Sorry, solar activity is low {userDates} and even Zones 1 and 2 can't see the lights.
   //  If it's a matter of weather: Sorry, it's not a great idea to make the trip from {userLocation} because it won't be clear enough. (But still give a list of 10 possible locations+dates+times)
 
-  // Table display: You can view the Northern Lights here:
-  const row = $("<tr>");
-  //  City
-  const location = $("<td>");
-  location.text(); //location variable
-  row.append(location);
-
-  //  Distance from start location
-  const distanceFromStart = $("<td>");
-  distanceFromStart.text(); //distanceFromStart variable
-  row.append(distanceFromStart);
-
-  //viewing probablity
-  const viewProbability = $("<td>");
-  viewProbability.text(); //viewProbability variable
-  row.append(viewProbability);
-  //  sunset
-  const sunset = $("<td>");
-  sunset.text(); //sunset variable
-  row.append(sunset);
-  //  sunrise
-  const sunrise = $("<td>");
-  sunrise.text(); //sunrise variable
-  row.append(sunrise);
-  //  Best time
-  const bestTime = $("<td>");
-  bestTime.text(); //bestTime variable
-  row.append(bestTime);
-  $("tbody").append(row);
   // When a user clicks on a result in the list - card is replaced with #selectedLocale
-  $("<tr>").on("click", function() {
+  $(document).on("click", "<tr>", function() {
     $("#selectedLocale").append("Location: " + location);
     $("#selectedLocale").append("Viewing Probability: " + viewProbability);
     $("#selectedLocale").append("Best Viewing Time: " + bestTime);
