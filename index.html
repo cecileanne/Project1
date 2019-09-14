@@ -7,13 +7,21 @@
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="https://momentjs.com/downloads/moment.min.js"></script>
     <!-- <link rel="stylesheet" href="./assets/css/reset.css" /> -->
+    <!-- GOOGLE FONTS ------------------------------------------------------------------------->
     <link
-      href="https://fonts.googleapis.com/css?family=Gruppo|Monoton|Orbitron|Saira+Extra+Condensed&display=swap"
+      href="https://fonts.googleapis.com/css?family=Gruppo|Monoton&display=swap"
       rel="stylesheet"
     />
+    <!-- MATERIALIZE FRAMEWORK -------------------------------------------------------------- -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin=""
     />
     <link rel="stylesheet" href="./assets/css/style.css" />
     <!--  Link to Leaflet -->
@@ -31,108 +39,151 @@
       crossorigin=""
     ></script>
 
-    <!-- Compiled and minified JavaScript -->
+  <!-- Make sure you put this AFTER Leaflet's CSS -->
+  <script
+    src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+    crossorigin=""
+  ></script>
+
+
+    <!-- Compiled and minified JavaScript ------------------------------------------------------->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-    <title>Space Chasers</title>
+    <title>Aurora Chasers</title>
   </head>
   <body>
-    <nav>
-      <div class="nav-wrapper deep-purple lighten-1 teal-text text-lighten-5">
-        <!-- <a href="#" class="brand-logo right">Logo</a> -->
-        <ul id="nav-mobile" class="left hide-on-med-and-down">
-          <li><a href="#">aurora info</a></li>
-          <li><a href="#">k-idex info</a></li>
-        </ul>
-      </div>
-    </nav>
-    <div class="container purple-text text-darken-4">
-      <!-- card for a little intro/how to use site text -->
+    <header>
+
+      <nav>
+        <div class="nav-wrapper deep-purple lighten-1 teal-text text-lighten-5">
+          <!-- <a href="#" class="brand-logo right">Logo</a>------------------------------- -->
+          
+            <!-- Dropdown Trigger---------------------------------------------------------- -->
+          <a class='dropdown-trigger' href='#' data-target='dropdown1'>Aurora Info</a>
+
+  <!-- Dropdown Structure -->
+          <ul id='dropdown1' class='dropdown-content left'>
+              <li><a href="https://spaceplace.nasa.gov/aurora/en/">What is an Aurora?</a></li>
+              <li class="divider" tabindex="-1"></li>
+              <li><a href="https://www.spaceweatherlive.com/en/help/the-kp-index">kp-idex info</a></li>
+              <li class="divider" tabindex="-1"></li>
+              <li><a href="https://www.space.com/32601-where-to-see-northern-lights.html">Best Vacation Spots in Europe</a></li>
+ 
+             </ul>
+       </div> 
+      </nav>
+    </header>
+    <main>
+      <div class="container purple-text text-darken-4">
+        <!-- -----header--------------------------------------------------------------------------- -->
       <h1 class="left-align">Space Chasers</h1>
       <div class="row">
         <div class="col s12 m6">
+          <!-- ---directions and info fo user after the table has been populated and an item clicked -->
+          <div id="selectedLocale"></div>
+          <!-- card for a little intro/how to use site text------------------------------------ -->
           <div class="card  teal lighten-5 z-depth-1">
-            <div class="card-content deep-purple-text text-darken-3">
+            <div class="card-content deep-purple-text text-darken-5">
               <span class="card-title">Welcome to Space Chasers!</span>
 
               <p>
                 Here you can find the nearest viewable Aurora Borealis to your
                 location. Just enter your location and you will be given your
                 distance from the nearest viewable location as well as peak time
-                for viewing.
+                for viewing. If you live near big cities you will have problems
+                with light pollution(the east coast and midwest will have the
+                toughest time). You should be prepared to plan a trip and check the
+                best times to view the Aurora the day before and the day of the
+                trip.
               </p>
             </div>
           </div>
-          <!-- input row -->
+          <!-- ----------------------input row------------------------------------------------ -->
           <div class="row">
             <div class="section">
               <form id="cityForm" class="col s12">
                 <div class="input-field col s6">
                   <input
                     id="city"
-                    placeholder="City"
-                    type="text"
+                    placeholder="Zip Code"
+                    type="number"
                     class="validate"
                   />
-                  <!--submit button -->
-                  <input
-                    class="btn blue lighten-2"
-                    type="submit"
-                    value="submit"
-                  />
-                  <!-- maybe should be changed to zip code? (so enter numbers) we can use character counter for zipcode -->
+
+
+                  <!--submit button -------------------------------------------------------------->
+                  <button class="btn waves-effect waves-light cyan accent-3" type="submit" name="action">Submit
+                  
+                    </button>
+                
+                  <!-- -----we can use character counter for zipcode ------------------------------->
+
+                 
+
                   <label for="Location">Your Location</label>
                 </div>
               </form>
             </div>
           </div>
         </div>
-        <!-- area that is intended to be the map -->
-        <div class="col s6" id="map">
-          <div id="mapid"></div>
-          <!-- <img
-            class=" responsive-img right"
-            width="400"
-            src="assets/images/map.png"
-          /> 
-          -->
-        </div>
-      </div>
-      <!-- table -->
-      <div class="row">
-        <table class="highlight responsive-table ">
-          <thead>
-            <tr>
-              <th>City</th>
-              <th>Distance From You</th>
-              <th>Viewing Probability</th>
-              <th>Sunset</th>
-              <th>Sunrise</th>
-              <th>Best Viewing Time</th>
-            </tr>
-          </thead>
 
-          <tbody>
-            <tr>
-              <td>placeholder</td>
-              <td>placeholder</td>
-              <td>placeholder</td>
-              <td>placeholder</td>
-              <td>placeholder</td>
-              <td>placeholder</td>
-            </tr>
-          </tbody>
-        </table>
+        <!-- -------------------------------area that is intended to be the map-------------- -->
+        <div class="col s6 " id="map">
+            <div id="mapid" class="right"></div>
+
+
+      </div>
+      <!-- -------------------------PROGRESS BAR ---------------------------------------------->
+      <!-- <div class="progress">
+          <div class="determinate" style="width: 70%"></div>
+      </div>
+      <div class="row"> -->
+        <!-- -----------id to put the text to explain long travel times--------------------------->
+        <div id="distanceExplaination"></div>
+          <!-- -------------------------------table------------------------------------------------ -->
+        
+            <div class="transbox">
+          <table class="highlight responsive-table "></div>
+            <thead>
+              <tr>
+                <th>Location</th>
+                <th>Distance From You</th>
+                <th>Viewing Probability</th>
+                <th>Sunset</th>
+                <th>Sunrise</th>
+                <th>Best Viewing Time</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>placeholder</td>
+                <td>placeholder</td>
+                <td>placeholder</td>
+                <td>placeholder</td>
+                <td>placeholder</td>
+                <td>placeholder</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+          
+        
       </div>
     </div>
-    <footer class="page-footer deep-purple lighten-2">
+
+    </main>
+    <!-- ---------------------------------footer-------------------------------------------- -->
+    <footer class="page-footer deep-purple lighten-1">
       <div class="footer-copyright center-align">
         <div class="container">
           © 2019 Copyright Text
-          <a class="teal-text text-lighten-5" href="#!">Aurora Api</a>
+          <a class="teal-text text-lighten-5" href="http://auroraslive.io/#/api/v1/introduction http://auroraslive.io/#/api/v1/all">Aurora Api</a>
         </div>
       </div>
     </footer>
+    <!-- ---------------------------------------------js link------------------------------------- -->
     <script src="./assets/javascript/project_app.js"></script>
   </body>
 </html>
