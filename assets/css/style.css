@@ -50,3 +50,8 @@ main {
   border-bottom: 1px solid #f50057;
   box-shadow: 0 1px 0 0 #000;
 }
+
+#mapid {
+  width: 350px;
+  height: 350px;
+}
