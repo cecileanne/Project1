@@ -28,21 +28,21 @@ $(document).ready(function() {
   // Array of Dark Sky objects:
 
   const darkSkyPlaces = [
-    // {
-    //   name: "Antelope Island State Park",
-    //   latitude: 41.02983,
-    //   longitude: -112.2297
-    // },
+    {
+      name: "Antelope Island State Park",
+      latitude: 41.02983,
+      longitude: -112.2297
+    },
 
-    // { name: "Arches National Park", latitude: 38.7334, longitude: -109.5926 },
+    { name: "Arches National Park", latitude: 38.7334, longitude: -109.5926 },
 
-    // { name: "Beverly Shores, IN", latitude: 41.6898, longitude: -86.9796 },
+    { name: "Beverly Shores, IN", latitude: 41.6898, longitude: -86.9796 },
 
-    // {
-    //   name: "Black Canyon of the Gunnison National Park",
-    //   latitude: 38.5847,
-    //   longitude: -107.744
-    // },
+    {
+      name: "Black Canyon of the Gunnison National Park",
+      latitude: 38.5847,
+      longitude: -107.744
+    }
 
     // { name: "Bon Accord, Alberta", latitude: 53.8355, longitude: -113.4141 },
 
@@ -193,23 +193,23 @@ $(document).ready(function() {
     //   longitude: -78.6772
     // },
 
-    { name: "Steinaker State Park", latitude: 40.5118, longitude: -109.524 },
+    // { name: "Steinaker State Park", latitude: 40.5118, longitude: -109.524 },
 
-    { name: "Torrey, UT", latitude: 38.2957, longitude: -111.2736 },
+    // { name: "Torrey, UT", latitude: 38.2957, longitude: -111.2736 },
 
-    {
-      name: "Waterton Lakes National Park",
-      latitude: 49.0836,
-      longitude: -113.9187
-    },
+    // {
+    //   name: "Waterton Lakes National Park",
+    //   latitude: 49.0836,
+    //   longitude: -113.9187
+    // },
 
-    {
-      name: "Weber County North Fork Park",
-      latitude: 41.3709,
-      longitude: -111.9073
-    },
+    // {
+    //   name: "Weber County North Fork Park",
+    //   latitude: 41.3709,
+    //   longitude: -111.9073
+    // },
 
-    { name: "Westcliffe, CO", latitude: 38.1353, longitude: -105.4733 }
+    // { name: "Westcliffe, CO", latitude: 38.1353, longitude: -105.4733 }
   ];
 
   // event listener - user input on form submit
@@ -223,6 +223,7 @@ $(document).ready(function() {
       console.log(isLoading);
       let loadCount = 0;
       darkSkyPlaces.forEach(element => {
+        let weatherData = "";
         // Save to local storage (no need for cookies or server) - eventually if we have a log in then people could save settings or plan events
         //  Where is the user / where will the user be (user input of starting location)
         //  Date (if not current date), optional
@@ -245,7 +246,7 @@ $(document).ready(function() {
               type: "GET"
             }).then(weatherResults => {
               loadCount++;
-
+              weatherData = weatherResults;
               console.log(weatherResults);
               if (loadCount >= darkSkyPlaces.length) {
                 isLoading = false;
@@ -259,19 +260,51 @@ $(document).ready(function() {
             }).then(userWeather => {
               const cityLat = userWeather.city.coord.lat;
               const cityLon = userWeather.city.coord.lon;
-              // console.log(cityLat + "citylat");
-              // console.log(cityLon + "citylon");
-              // console.log(element.latitude + "elemlat");
-              // console.log(element.longitude + "elemlon");
-              // console.log(directionResults);
+              console.log(userWeather);
               $.ajax({
                 url: `https://api.mapbox.com/directions/v5/mapbox/driving/${cityLon},${cityLat};${element.longitude},${element.latitude}?access_token=pk.eyJ1IjoiY2VjaWxlYW5uZXNpc29uIiwiYSI6ImNrMGpxbG5taTA5cnAzYm90dHBwbHM0bmsifQ.S8GKddmQ1_kd1f_gRBt7yQ`
               }).then(directionResults => {
-                console.log(cityLat + "citylat");
-                console.log(cityLon + "citylon");
-                console.log(element.latitude + "elemlat");
-                console.log(element.longitude + "elemlon");
                 console.log(directionResults);
+                const distanceMiles = Math.floor(
+                  directionResults.routes[0].distance * 0.000621371
+                );
+
+                const row = $("<tr>");
+                //  City
+                const location = $("<td>");
+                location.text(element.name); //location variable
+                row.append(location);
+
+                //  Distance from start location
+                const distanceFromStart = $("<td>");
+                distanceFromStart.text(distanceMiles); //distanceFromStart variable
+                row.append(distanceFromStart);
+
+                //viewing probablity
+                const viewProbability = $("<td>");
+                viewProbability.text(probability); //viewProbability variable
+                row.append(viewProbability);
+                //  sunset
+                // const sunset = $("<td>");
+                // sunset.text(); //sunset variable
+                // row.append(sunset);
+                // //  sunrise
+                // const sunrise = $("<td>");
+                // sunrise.text(); //sunrise variable
+                // row.append(sunrise);
+                //  Best time
+                const bestTime = $("<td>");
+                const sunTime = moment
+                  .unix(weatherData.city.sunrise)
+                  .format(`HH:MM`);
+                // .subtract(2, "hours"); not working :(
+                const sunsetTime = moment
+                  .unix(weatherData.city.sunset)
+                  .format(`HH:MM`);
+                // .add(2, "hours"); not working :(
+                bestTime.text(`${sunsetTime} - ${sunTime}`); //bestTime variable
+                row.append(bestTime);
+                $("tbody").append(row);
               });
               // const _firstLatLng = [{ cityLat, cityLon }];
               // const _secondLatLng = [{ objectLat, objectLon }];
