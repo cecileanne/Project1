@@ -17,26 +17,44 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
+    <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin=""
+    />
     <link rel="stylesheet" href="./assets/css/style.css" />
+
+  <!-- Make sure you put this AFTER Leaflet's CSS -->
+  <script
+    src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+    crossorigin=""
+  ></script>
+
 
     <!-- Compiled and minified JavaScript ------------------------------------------------------->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-    <title>Space Chasers</title>
+    <title>Aurora Chasers</title>
   </head>
   <body>
-    <nav>
-      <div class="nav-wrapper deep-purple lighten-1 teal-text text-lighten-5">
-        <!-- <a href="#" class="brand-logo right">Logo</a>------------------------------- -->
-        <ul id="nav-mobile" class="left hide-on-med-and-down">
-          <li><a href="https://spaceplace.nasa.gov/aurora/en/">aurora info</a></li>
-          <li><a href="https://www.spaceweatherlive.com/en/help/the-kp-index">k-idex info</a></li>
-          <li><a href="https://www.space.com/32601-where-to-see-northern-lights.html">Best Vacation Spots: Europe</a></li>
-        </ul>
-      </div>
-    </nav>
-    <div class="container purple-text text-darken-4">
-      <!-- -----header--------------------------------------------------------------------------- -->
+    <header>
+
+      <nav>
+        <div class="nav-wrapper deep-purple lighten-1 teal-text text-lighten-5">
+          <!-- <a href="#" class="brand-logo right">Logo</a>------------------------------- -->
+          <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li><a href="https://spaceplace.nasa.gov/aurora/en/">aurora info</a></li>
+            <li><a href="https://www.spaceweatherlive.com/en/help/the-kp-index">k-idex info</a></li>
+            <li><a href="https://www.space.com/32601-where-to-see-northern-lights.html">Best Vacation Spots: Europe</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="container purple-text text-darken-4">
+        <!-- -----header--------------------------------------------------------------------------- -->
       <h1 class="left-align">Space Chasers</h1>
       <div class="row">
         <div class="col s12 m6">
@@ -84,14 +102,8 @@
           </div>
         </div>
         <!-- -------------------------------area that is intended to be the map-------------- -->
-        <div class="col s6" id="map">
-            <div id="mapid"></div>
-          <!-- <img
-            class=" responsive-img right"
-            width="400"
-            src="assets/images/map.png"
-          />
-        </div> -->
+        <div class="col s6 " id="map">
+            <div id="mapid" class="right"></div>
       </div>
       <!-- -------------------------PROGRESS BAR ---------------------------------------------->
       <!-- <div class="progress">
@@ -131,12 +143,14 @@
         
       </div>
     </div>
+
+    </main>
     <!-- ---------------------------------footer-------------------------------------------- -->
     <footer class="page-footer deep-purple lighten-1">
       <div class="footer-copyright center-align">
         <div class="container">
           © 2019 Copyright Text
-          <a class="teal-text text-lighten-5" href="#!">Aurora Api</a>
+          <a class="teal-text text-lighten-5" href="http://auroraslive.io/#/api/v1/introduction http://auroraslive.io/#/api/v1/all">Aurora Api</a>
         </div>
       </div>
     </footer>
