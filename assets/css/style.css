@@ -42,24 +42,20 @@ footer {
 .input-field label {
   color: white;
 }
-/* label focus color */
-.input-field input[type="text"]:focus + label {
-  color: white;
-}
 ::placeholder {
   color: white;
 }
 
 /* label underline focus color */
-.input-field input[type="text"] {
+input.valid[type="number"] {
   border-bottom: 1px solid white;
 }
 /* valid color */
-.input-field input[type="text"].valid {
+.input input[type="number"].valid {
   border-bottom: 1px solid white;
 }
 /* invalid color */
-.input-field input[type="text"].invalid {
+.input-field input[type="number"].invalid {
   border-bottom: 1px solid #f50057;
 }
 
@@ -67,3 +63,10 @@ footer {
   width: 350px;
   height: 350px;
 }
+
+/* label focus color */
+input.valid[type="number"],
+input.valid[type="number"]:focus {
+  color: white;
+}
+/*  ===========================MEDIA QUERY========================================================== */
