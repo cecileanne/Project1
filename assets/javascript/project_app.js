@@ -3,7 +3,7 @@ $(document).ready(function() {
   //FOR NAVBAR DROPDOW---------------------------------------------------------------------------------------
   $(".dropdown-trigger").dropdown();
   // Eventually have buttons or a side bar with different searches (eclipses, asteroids, etc)
-
+  //--------------------------------------------------------------------------------------------------------------
   // DO NOT NEED - Set variables for calculating if one can see the Northern Lights
   // DO NOT NEED - For Northern Lights, we can set the search parameter of a user traveling that day to up to a week from the current date
   // DO NOT NEED NOW - (if we decide on working on eclipses, the search parameters are based on when an eclipse is happening on earth, taken from an API)
@@ -212,7 +212,7 @@ $(document).ready(function() {
     // { name: "Westcliffe, CO", latitude: 38.1353, longitude: -105.4733 }
   ];
 
-  // event listener - user input on form submit
+  // event listener - user input on form submit-----------------------------------------------------
   let isLoading = false;
   $(document).on("submit", "#cityForm", function() {
     event.preventDefault();
