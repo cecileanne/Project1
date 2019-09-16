@@ -17,10 +17,12 @@ main {
 }
 #currentUsers {
   margin: 40px auto;
-  padding: 20px;
+  padding: 10px;
+  font-size: 17px;
 }
 table,
 .card-title,
+#currentUsers,
 p,
 nav,
 footer {

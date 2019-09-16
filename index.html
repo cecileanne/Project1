@@ -9,46 +9,39 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
+    <!-- --------------JQUERY---------------------------------------------------------------- -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <!-- -------------MOMENT JS-------------------------------------------------------------- -->
     <script src="https://momentjs.com/downloads/moment.min.js"></script>
-    <!-- <link rel="stylesheet" href="./assets/css/reset.css" /> -->
+
     <!-- GOOGLE FONTS ------------------------------------------------------------------------->
     <link
       href="https://fonts.googleapis.com/css?family=Gruppo|Monoton&display=swap"
       rel="stylesheet"
     />
+
+    <!--  Link to Leaflet-------------------------------------------------------------------- -->
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
       integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
       crossorigin=""
     />
-    <!--  Link to Leaflet -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-      crossorigin=""
-    />
 
-    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <!-- Make sure you put this AFTER Leaflet's CSS----------------------------------------------- -->
     <script
       src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
       integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
       crossorigin=""
     ></script>
 
-    <!-- Make sure you put this AFTER Leaflet's CSS -->
-    <script
-      src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-      integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-      crossorigin=""
-    ></script>
-
-    <!-- Compiled and minified JavaScript ------------------------------------------------------->
+    <!-- Compiled and minified JavaScript/ajax ------------------------------------------------------->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
+    <!-- ------------CSS LINK--------------------------------------------------------------------------- -->
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <!-- --------FIREBASE ---------------------------------------------------------------------- -->
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
     <title>Aurora Chasers</title>
   </head>
   <body>
@@ -94,7 +87,7 @@
             <h1 class="left-align">Space Chasers</h1>
           </div>
           <div class="col s12 m1 l1">
-            <span id="currentUsers" class="right">0</span>
+            <span id="currentUsers" class="right"></span>
           </div>
         </div>
         <div class="row">
