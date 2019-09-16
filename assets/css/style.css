@@ -15,18 +15,27 @@ h1 {
 main {
   flex: 1 0 auto;
 }
+#currentUsers {
+  margin: 40px auto;
+  padding: 10px;
+  font-size: 17px;
+}
 table,
 .card-title,
+#currentUsers,
 p,
 nav,
 footer {
   font-family: "Gruppo", cursive;
 }
-
+#cardText {
+  font-size: 20px;
+}
 #mapid {
   width: 100%;
   height: 370px;
-  margin: none;
+  margin-left: auto;
+  margin-right: auto;
   padding: none;
 }
 
@@ -42,30 +51,30 @@ footer {
 .input-field label {
   color: white;
 }
-/* label focus color */
-.input-field input[type="text"]:focus + label {
-  color: white;
-}
 ::placeholder {
   color: white;
 }
 
 /* label underline focus color */
-.input-field input[type="text"] {
+input.valid[type="number"] {
   border-bottom: 1px solid white;
 }
 /* valid color */
-.input-field input[type="text"].valid {
+.input input[type="number"].valid {
   border-bottom: 1px solid white;
 }
 /* invalid color */
-.input-field input[type="text"].invalid {
+.input-field input[type="number"].invalid {
   border-bottom: 1px solid #f50057;
 }
 
-#mapid {
-  width: 350px;
-  height: 350px;
+/* label focus color */
+input.valid[type="number"],
+input.valid[type="number"]:focus {
+  color: white;
+}
+table {
+  font-size: 17px;
 }
 
 /* removing the "spinner" buttons from number input */
