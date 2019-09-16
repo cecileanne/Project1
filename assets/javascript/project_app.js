@@ -3,7 +3,31 @@ $(document).ready(function() {
   //FOR NAVBAR DROPDOW---------------------------------------------------------------------------------------
   $(".dropdown-trigger").dropdown();
   // Eventually have buttons or a side bar with different searches (eclipses, asteroids, etc)
+  //-------------------------FIREBASE-------------------------------------------------------------------------------------
+  const firebaseConfig = {
+    apiKey: "AIzaSyAzbPIVKtTavnGr0c1OSBJc5paL39E5Ido",
+    authDomain: "spacechasers.firebaseapp.com",
+    databaseURL: "https://spacechasers.firebaseio.com",
+    projectId: "spacechasers",
+    storageBucket: "",
+    messagingSenderId: "795917898622",
+    appId: "1:795917898622:web:7dae77116fbeb71348592f"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
 
+  const database = firebase.database();
+  const connectionsRef = database.ref("/connections");
+  const connectedRef = database.ref(".info/connected");
+  connectedRef.on("value", function(snap) {
+    if (snap.val()) {
+      const con = connectionsRef.push(true);
+      con.onDisconnect().remove();
+    }
+  });
+  connectionsRef.on("value", function(snap) {
+    $("#currentUsers").text("Current Users: " + snap.numChildren());
+  });
   // DO NOT NEED - Set variables for calculating if one can see the Northern Lights
   // DO NOT NEED - For Northern Lights, we can set the search parameter of a user traveling that day to up to a week from the current date
   // DO NOT NEED NOW - (if we decide on working on eclipses, the search parameters are based on when an eclipse is happening on earth, taken from an API)
@@ -212,7 +236,7 @@ $(document).ready(function() {
     // { name: "Westcliffe, CO", latitude: 38.1353, longitude: -105.4733 }
   ];
 
-  // event listener - user input on form submit
+  // event listener - user input on form submit-----------------------------------------------------
   let isLoading = false;
   $(document).on("submit", "#cityForm", function() {
     event.preventDefault();
