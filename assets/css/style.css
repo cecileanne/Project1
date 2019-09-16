@@ -67,3 +67,15 @@ footer {
   width: 350px;
   height: 350px;
 }
+
+/* removing the "spinner" buttons from number input */
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
