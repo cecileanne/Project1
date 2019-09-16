@@ -332,7 +332,7 @@ $(document).ready(function() {
                     "data-userlat": cityLat
                   })
                   .addClass("tableRow");
-                $("tbody").append(row);
+                $("tbody").prepend(row);
               }); // closes weather .then;
               // const _firstLatLng = [{ cityLat, cityLon }];
               // const _secondLatLng = [{ objectLat, objectLon }];
