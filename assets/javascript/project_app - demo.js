@@ -250,8 +250,10 @@ $(document).ready(function() {
           url: auroraQueryURL,
           method: "GET"
         }).then(auroraResults => {
+          let auroraCount = 0;
           let probability = auroraResults.probability.highest.value;
           if (probability > 20) {
+            auroraCount++;
             // 5 day weather forecast:
             const weatherAPIKey = "743ab863a8fe63b9814fb432f2017098";
             const weatherQueryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${element.latitude}&lon=${element.longitude}&APPID=${weatherAPIKey}`;
@@ -338,6 +340,11 @@ $(document).ready(function() {
               }); // closes weather .then;
             });
           } // closes probability if conditional
+          if (auroraCount === 0) {
+            $("#noGoMessage").html(
+              "<h5>Sorry, solar activity isn't high enough to be visible.</h5>"
+            );
+          }
         }); //closes aurora .then
       }); // closes forEach
     } // closes isLoading conditional
