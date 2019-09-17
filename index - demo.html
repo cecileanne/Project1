@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- MATERIALIZE FRAMEWORK -------------------------------------------------------------- -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <!-- --------------JQUERY---------------------------------------------------------------- -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <!-- -------------MOMENT JS-------------------------------------------------------------- -->
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+
+    <!-- GOOGLE FONTS ------------------------------------------------------------------------->
+    <link
+      href="https://fonts.googleapis.com/css?family=Gruppo|Monoton&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--  Link to Leaflet-------------------------------------------------------------------- -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin=""
+    />
+
+    <!-- Make sure you put this AFTER Leaflet's CSS----------------------------------------------- -->
+    <script
+      src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+      integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+      crossorigin=""
+    ></script>
+
+    <!-- Compiled and minified JavaScript/ajax ------------------------------------------------------->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- ------------CSS LINK--------------------------------------------------------------------------- -->
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <!-- --------FIREBASE ---------------------------------------------------------------------- -->
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+    <title>Aurora Chasers</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="nav-wrapper deep-purple teal-text text-lighten-5">
+          <!-- <a href="#" class="brand-logo right">Logo</a>------------------------------- -->
+
+          <!-- Dropdown Trigger---------------------------------------------------------- -->
+          <a class="dropdown-trigger" href="#" data-target="dropdown1"
+            >Aurora Info</a
+          >
+
+          <!-- Dropdown Structure -->
+          <ul id="dropdown1" class="dropdown-content left">
+            <li>
+              <a href="https://spaceplace.nasa.gov/aurora/en/"
+                >What is an Aurora?</a
+              >
+            </li>
+            <li class="divider" tabindex="-1"></li>
+            <li>
+              <a href="https://www.spaceweatherlive.com/en/help/the-kp-index"
+                >kp-idex info</a
+              >
+            </li>
+            <li class="divider" tabindex="-1"></li>
+            <li>
+              <a
+                href="https://www.space.com/32601-where-to-see-northern-lights.html"
+                >Best Vacation Spots in Europe</a
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="container purple-text text-darken-4">
+        <!-- -----header--------------------------------------------------------------------------- -->
+        <div class="row">
+          <div class="col s12 m11 l11">
+            <h1 class="left-align">Space Chasers</h1>
+          </div>
+          <div class="col s12 m1 l1">
+            <span id="currentUsers" class="right"></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m12 l6">
+            <!-- ---directions and info fo user after the table has been populated and an item clicked -->
+            <div id="selectedLocale">
+              <!-- card for a little intro/how to use site text------------------------------------ -->
+              <div class="card  teal lighten-5 z-depth-1">
+                <div class="card-content deep-purple-text text-darken-5">
+                  <span class="card-title">Welcome to Space Chasers!</span>
+
+                  <p id="cardText">
+                    Here you can find the nearest viewable Aurora Borealis
+                    (Northern Lights) to your location. Just enter your ZIP code
+                    and you will be given a list of places designated as dark
+                    sky sites. You should be prepared to plan a mini trip.
+                    However, please note that cloud cover and light pollution
+                    will affect visibility.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- ----------------------input row------------------------------------------------ -->
+            <div class="row">
+              <div class="section">
+                <form id="cityForm" class="col s12 m12 l6">
+                  <div class="input-field col s12">
+                    <input
+                      id="city"
+                      placeholder="Zip Code"
+                      type="number"
+                      class="validate"
+                    />
+
+                    <!--submit button -------------------------------------------------------------->
+                    <button
+                      class="btn waves-effect waves-light cyan lighten-2"
+                      type="submit"
+                      name="action"
+                    >
+                      Submit
+                    </button>
+
+                    <!-- -----we can use character counter for zipcode ------------------------------->
+
+                    <label for="Location">Your Location</label>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- -------------------------------area that is intended to be the map-------------- -->
+          <div class="col s12 m12 l6 " id="map">
+            <div id="mapid"></div>
+          </div>
+        </div>
+        <!-- -------------------------PROGRESS BAR ---------------------------------------------->
+        <!-- <div class="progress">
+          <div class="determinate" style="width: 70%"></div>
+      </div>-->
+        <!-- NEW ROW ---------------------------------------------------------------------------- -->
+        <div class="row">
+          <div class="section col s12 m12 l12">
+            <!-- -----------id to put the text to explain long travel times--------------------------->
+            <div id="distanceExplaination"></div>
+            <!-- -------------------------------table------------------------------------------------ -->
+
+            <table class="highlight responsive-table ">
+              <thead>
+                <tr>
+                  <th>Viewing Site</th>
+                  <th>Distance (miles)</th>
+                  <th>Viewing Probability (%)</th>
+                  <th>Cloudiness (%)</th>
+                  <th>Sunset - Sunrise</th>
+                </tr>
+              </thead>
+
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- ---------------------------------footer-------------------------------------------- -->
+    <footer class="page-footer deep-purple lighten-1">
+      <div class="footer-copyright center-align">
+        <div class="container">
+          © 2019 Space Chasers <br />
+          <a
+            class="teal-text text-lighten-5"
+            href="http://auroraslive.io/#/api/v1/introduction http://auroraslive.io/#/api/v1/all"
+            >Powered by Auroras.live</a
+          >
+        </div>
+      </div>
+    </footer>
+    <!-- ---------------------------------------------js link------------------------------------- -->
+    <script src="./assets/javascript/project_app - demo.js"></script>
+  </body>
+</html>
