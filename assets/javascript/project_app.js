@@ -236,7 +236,7 @@ $(document).ready(function() {
     // { name: "Westcliffe, CO", latitude: 38.1353, longitude: -105.4733 }
   ];
 
-  // event listener - user input on form submit-----------------------------------------------------
+  // event listener - user input on form submit
   let isLoading = false;
   $(document).on("submit", "#cityForm", function() {
     event.preventDefault();
@@ -304,19 +304,12 @@ $(document).ready(function() {
                 distanceFromStart.text(distanceMiles); //distanceFromStart variable
                 row.append(distanceFromStart);
 
-                //viewing probablity
+                // viewing probablity
                 const viewProbability = $("<td>");
                 viewProbability.text(probability); //viewProbability variable
                 row.append(viewProbability);
-                //  sunset
-                // const sunset = $("<td>");
-                // sunset.text(); //sunset variable
-                // row.append(sunset);
-                // //  sunrise
-                // const sunrise = $("<td>");
-                // sunrise.text(); //sunrise variable
-                // row.append(sunrise);
-                //  Best time
+
+                // sunset - sunrise
                 const bestTime = $("<td>");
                 const sunTime = moment
                   .unix(weatherData.city.sunrise)
@@ -328,8 +321,19 @@ $(document).ready(function() {
                 // .add(2, "hours"); not working :(
                 bestTime.text(`${sunsetTime} - ${sunTime}`); //bestTime variable
                 row.append(bestTime);
-                $("tbody").append(row);
-              });
+
+                // row needs data attributes and classes for directions event
+
+                $(row)
+                  .attr({
+                    "data-destlon": element.longitude,
+                    "data-destlat": element.latitude,
+                    "data-userlon": cityLon,
+                    "data-userlat": cityLat
+                  })
+                  .addClass("tableRow");
+                $("tbody").prepend(row);
+              }); // closes weather .then;
               // const _firstLatLng = [{ cityLat, cityLon }];
               // const _secondLatLng = [{ objectLat, objectLon }];
               // // function distanceCalculator() {
@@ -341,11 +345,36 @@ $(document).ready(function() {
               // console.log(`distance: ${distance}`);
               // }
             });
-          }
+          } // closes probability if conditional
         }); //closes aurora .then
       }); // closes forEach
     } // closes isLoading conditional
   }); // closes form submit listener
+
+  // second event listener:  each table row will run a "directions" call on click
+  $(document).on("click", ".tableRow", function() {
+    const rowData = {
+      destLon: $(event.target)
+        .parent()
+        .data("destlon"),
+      destLat: $(event.target)
+        .parent()
+        .data("destlat"),
+      userLon: $(event.target)
+        .parent()
+        .data("userlon"),
+      userLat: $(event.target)
+        .parent()
+        .data("userlat")
+    };
+    $.ajax({
+      url: `https://api.mapbox.com/directions/v5/mapbox/driving/${rowData.userLon},${rowData.userLat};${rowData.destLon},${rowData.destLat}?geometries=geojson&access_token=pk.eyJ1IjoiY2VjaWxlYW5uZXNpc29uIiwiYSI6ImNrMGpxbG5taTA5cnAzYm90dHBwbHM0bmsifQ.S8GKddmQ1_kd1f_gRBt7yQ`
+    }).then(rowDirections => {
+      console.log(rowDirections);
+    });
+
+    // console.log(rowData);
+  }); // closes tableRow .on click
 
   // // Taking the new array of objects that have a probability over an amount (to be set after testing) and the weather, these are the latitudes and longitudes to run
   // afterWeatherLat = element.coord.lat;
@@ -415,37 +444,8 @@ $(document).ready(function() {
   //  If the solar flare activity is low: Sorry, solar activity is low {userDates} and even Zones 1 and 2 can't see the lights.
   //  If it's a matter of weather: Sorry, it's not a great idea to make the trip from {userLocation} because it won't be clear enough. (But still give a list of 10 possible locations+dates+times)
 
-  // Table display: You can view the Northern Lights here:
-  const row = $("<tr>");
-  //  City
-  const location = $("<td>");
-  location.text(); //location variable
-  row.append(location);
-
-  //  Distance from start location
-  const distanceFromStart = $("<td>");
-  distanceFromStart.text(); //distanceFromStart variable
-  row.append(distanceFromStart);
-
-  //viewing probablity
-  const viewProbability = $("<td>");
-  viewProbability.text(); //viewProbability variable
-  row.append(viewProbability);
-  //  sunset
-  const sunset = $("<td>");
-  sunset.text(); //sunset variable
-  row.append(sunset);
-  //  sunrise
-  const sunrise = $("<td>");
-  sunrise.text(); //sunrise variable
-  row.append(sunrise);
-  //  Best time
-  const bestTime = $("<td>");
-  bestTime.text(); //bestTime variable
-  row.append(bestTime);
-  $("tbody").append(row);
   // When a user clicks on a result in the list - card is replaced with #selectedLocale
-  $("<tr>").on("click", function() {
+  $(document).on("click", "<tr>", function() {
     $("#selectedLocale").append("Location: " + location);
     $("#selectedLocale").append("Viewing Probability: " + viewProbability);
     $("#selectedLocale").append("Best Viewing Time: " + bestTime);

@@ -76,3 +76,15 @@ input.valid[type="number"]:focus {
 table {
   font-size: 17px;
 }
+
+/* removing the "spinner" buttons from number input */
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
