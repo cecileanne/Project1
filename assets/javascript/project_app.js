@@ -240,7 +240,7 @@ $(document).ready(function() {
     if (isLoading === false) {
       const citySearch = $("#city").val();
       isLoading = true;
-      console.log(isLoading);
+
       let loadCount = 0;
       darkSkyPlaces.forEach(element => {
         let weatherData = "";
@@ -250,8 +250,10 @@ $(document).ready(function() {
           url: auroraQueryURL,
           method: "GET"
         }).then(auroraResults => {
+          let auroraCount = 0;
           let probability = auroraResults.probability.highest.value;
           if (probability > 75) {
+            auroraCount++;
             // 5 day weather forecast:
             const weatherAPIKey = "743ab863a8fe63b9814fb432f2017098";
             const weatherQueryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${element.latitude}&lon=${element.longitude}&APPID=${weatherAPIKey}`;
@@ -262,10 +264,9 @@ $(document).ready(function() {
             }).then(weatherResults => {
               loadCount++;
               weatherData = weatherResults;
-              console.log(weatherResults);
+
               if (loadCount >= darkSkyPlaces.length) {
                 isLoading = false;
-                console.log(isLoading);
               }
             });
             $.ajax({
@@ -275,11 +276,10 @@ $(document).ready(function() {
             }).then(userWeather => {
               const cityLat = userWeather.city.coord.lat;
               const cityLon = userWeather.city.coord.lon;
-              console.log(userWeather);
+
               $.ajax({
                 url: `https://api.mapbox.com/directions/v5/mapbox/driving/${cityLon},${cityLat};${element.longitude},${element.latitude}?access_token=pk.eyJ1IjoiY2VjaWxlYW5uZXNpc29uIiwiYSI6ImNrMGpxbG5taTA5cnAzYm90dHBwbHM0bmsifQ.S8GKddmQ1_kd1f_gRBt7yQ`
               }).then(directionResults => {
-                console.log(directionResults);
                 const distanceMiles = Math.floor(
                   directionResults.routes[0].distance * 0.000621371
                 );
@@ -338,6 +338,11 @@ $(document).ready(function() {
               }); // closes weather .then;
             });
           } // closes probability if conditional
+          if (auroraCount === 0) {
+            $("#noGoMessage").html(
+              "<h5>Sorry, solar activity isn't high enough to be visible.</h5>"
+            );
+          }
         }); //closes aurora .then
       }); // closes forEach
     } // closes isLoading conditional
