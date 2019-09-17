@@ -251,7 +251,7 @@ $(document).ready(function() {
           method: "GET"
         }).then(auroraResults => {
           let probability = auroraResults.probability.highest.value;
-          if (probability > 20) {
+          if (probability > 75) {
             // 5 day weather forecast:
             const weatherAPIKey = "743ab863a8fe63b9814fb432f2017098";
             const weatherQueryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${element.latitude}&lon=${element.longitude}&APPID=${weatherAPIKey}`;
