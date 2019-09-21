@@ -29,21 +29,32 @@ $(document).ready(function() {
     $("#currentUsers").text("Current Users: " + snap.numChildren());
   });
 
-  // Setting up the Leaflet Map (Evanston starting point, zoom at 13)
-  var map = L.map("mapid").setView([42.0451, -87.6877], 13);
+  // Setting up Google Map
+  const googleAPIKey = `AIzaSyDhRxWepgfYEccL4qPA1KmR-hmA6ICUSBw`;
+  $(`#mapid`).empty().append(`<iframe
+  width="400"
+  height="400"
+  frameborder="0" style="border:0"
+  src = 'https://www.google.com/maps/embed/v1/place?key=${googleAPIKey}
+    &q=Evanston+IL' allowfullscreen>
+    
+</iframe>`);
 
-  // Adding a tile layer to the map:
-  L.tileLayer(
-    "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
-    {
-      attribution:
-        'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-      maxZoom: 18,
-      id: "mapbox.streets",
-      accessToken:
-        "pk.eyJ1IjoiY2VjaWxlYW5uZXNpc29uIiwiYSI6ImNrMGpxbG5taTA5cnAzYm90dHBwbHM0bmsifQ.S8GKddmQ1_kd1f_gRBt7yQ"
-    }
-  ).addTo(map);
+  // // Setting up the Leaflet Map (Evanston starting point, zoom at 13)
+  // var map = L.map("mapid").setView([42.0451, -87.6877], 13);
+
+  // // Adding a tile layer to the map:
+  // L.tileLayer(
+  //   "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
+  //   {
+  //     attribution:
+  //       'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+  //     maxZoom: 18,
+  //     id: "mapbox.streets",
+  //     accessToken:
+  //       "pk.eyJ1IjoiY2VjaWxlYW5uZXNpc29uIiwiYSI6ImNrMGpxbG5taTA5cnAzYm90dHBwbHM0bmsifQ.S8GKddmQ1_kd1f_gRBt7yQ"
+  //   }
+  // ).addTo(map);
 
   // Array of Dark Sky objects:
 
@@ -252,7 +263,7 @@ $(document).ready(function() {
         }).then(auroraResults => {
           let auroraCount = 0;
           let probability = auroraResults.probability.highest.value;
-          if (probability > 75) {
+          if (probability > 20) {
             auroraCount++;
             // 5 day weather forecast:
             const weatherAPIKey = "743ab863a8fe63b9814fb432f2017098";
@@ -300,7 +311,7 @@ $(document).ready(function() {
                 viewProbability.text(probability); //viewProbability variable
                 row.append(viewProbability);
 
-                // cloudiness %
+                // cloudiness % - NOTE there was an error when weather didn't return weatherData.list
                 const cloudiness = $("<td>");
                 const cloudPercentage = weatherData.list[0].clouds.all;
 
@@ -365,6 +376,20 @@ $(document).ready(function() {
         .data("userlat")
     };
 
-    document.location.href = `https://www.google.com/maps/dir/${rowData.userLat},${rowData.userLon}/${rowData.destLat},${rowData.destLon}/data=!3m1!4b1!4m2!4m1!3e0`;
+    // Setting up GoogleMaps directions
+    console.log(`looking for map`);
+    $(`#mapid`).empty().append(`<iframe
+    width="400"
+    height="400"
+    frameborder="0" style="border:0"
+    src= "https://cors-anywhere.herokuapp.com/https://www.google.com/maps/embed/v1/directions
+    ?key=${googleAPIKey}
+    &origin=${rowData.userLat},${rowData.userLon}
+    &destination=${rowData.destLat},${rowData.destLon}">
+      
+  </iframe>`);
+    console.log(`map call done wheres it at?`);
+
+    // document.location.href = `https://www.google.com/maps/dir/${rowData.userLat},${rowData.userLon}/${rowData.destLat},${rowData.destLon}/data=!3m1!4b1!4m2!4m1!3e0`;
   }); // closes tableRow .on click
 }); // closes $(document).ready
