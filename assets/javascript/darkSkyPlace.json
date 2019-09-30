@@ -1,0 +1,211 @@
+[
+  {
+    "name": "Antelope Island State Park",
+    "latitude": 41.02983,
+    "longitude": -112.2297
+  },
+
+  {
+    "name": "Arches National Park",
+    "latitude": 38.7334,
+    "longitude": -109.5926
+  },
+
+  { "name": "Beverly Shores, IN", "latitude": 41.6898, "longitude": -86.9796 },
+
+  {
+    "name": "Black Canyon of the Gunnison National Park",
+    "latitude": 38.5847,
+    "longitude": -107.744
+  },
+
+  {
+    "name": "Bon Accord, Alberta",
+    "latitude": 53.8355,
+    "longitude": -113.4141
+  },
+
+  {
+    "name": "Bryce Canyon National Park",
+    "latitude": 37.6,
+    "longitude": -112.1901
+  },
+
+  {
+    "name": "Canyonlands National Park",
+    "latitude": 38.3311,
+    "longitude": -109.8789
+  },
+  {
+    "name": "Capitol Reef National Park",
+    "latitude": 38.3723,
+    "longitude": -111.2639
+  },
+  {
+    "name": "Capulin Volcano National Monument",
+    "latitude": 36.7816,
+    "longitude": -103.9697
+  },
+  {
+    "name": "Cedar Breaks National Monument",
+    "latitude": 37.6422,
+    "longitude": -112.8436
+  },
+
+  { "name": "Central Idaho", "latitude": 43.9624, "longitude": -114.9122 },
+
+  {
+    "name": "Chaco Culture National Historical Park",
+    "latitude": 36.0503,
+    "longitude": -107.956
+  },
+  {
+    "name": "Cherry Springs State Park",
+    "latitude": 41.6563,
+    "longitude": -77.8286
+  },
+  {
+    "name": "Clayon Lake State Park",
+    "latitude": 36.576,
+    "longitude": -103.3056
+  },
+
+  {
+    "name": "Craters of the Moon National Monument",
+    "latitude": 43.2152,
+    "longitude": -113.5014
+  },
+  {
+    "name": "Dead Horse Point State Park",
+    "latitude": 38.485,
+    "longitude": -109.7407
+  },
+
+  {
+    "name": "Dinosaur National Monument",
+    "latitude": 40.4927,
+    "longitude": -108.9417
+  },
+
+  {
+    "name": "Geauga Observatory Park",
+    "latitude": 41.5844,
+    "longitude": -81.082
+  },
+
+  {
+    "name": "Glacier National Park",
+    "latitude": 48.6535,
+    "longitude": -113.7827
+  },
+
+  {
+    "name": "Goblin Valley State Park",
+    "latitude": 38.5739,
+    "longitude": -110.7071
+  },
+
+  {
+    "name": "Great Basin National Park",
+    "latitude": 38.9881,
+    "longitude": -114.3048
+  },
+
+  {
+    "name": "Great Sand Dunes National Park and Preserve",
+    "latitude": 37.7908,
+    "longitude": -105.5596
+  },
+
+  {
+    "name": "Headlands International Dark Sky Park",
+    "latitude": 45.7756,
+    "longitude": -84.7765
+  },
+
+  { "name": "Homer Glen, IL", "latitude": 41.5989, "longitude": -87.9401 },
+
+  {
+    "name": "Hovenweep National Monument",
+    "latitude": 37.384,
+    "longitude": -109.0727
+  },
+
+  {
+    "name": "James River State Park",
+    "latitude": 37.6282,
+    "longitude": -78.1023
+  },
+
+  {
+    "name": "Kaibab Indian Reservation",
+    "latitude": 36.9214,
+    "longitude": -112.6786
+  },
+
+  { "name": "Ketchum, ID", "latitude": 43.6775, "longitude": -144.8558 },
+
+  {
+    "name": "Massacre Rim Wilderness Study Area",
+    "latitude": 41.7156,
+    "longitude": -119.6945
+  },
+
+  {
+    "name": "Middle Fork River Forest Preserve",
+    "latitude": 40.3802,
+    "longitude": -87.9533
+  },
+
+  {
+    "name": "Mont-Megantic National Park",
+    "latitude": 45.452,
+    "longitude": -71.1488
+  },
+
+  {
+    "name": "Natural Bridges National Monument",
+    "latitude": 37.6124,
+    "longitude": -110.0076
+  },
+
+  { "name": "Newport State Park", "latitude": 45.235, "longitude": -86.9993 },
+
+  { "name": "Norwood, CO", "latitude": 38.1315, "longitude": -108.2927 },
+
+  {
+    "name": "Rainbow Bridge National Monument",
+    "latitude": 37.0751,
+    "longitude": -110.8658
+  },
+
+  { "name": "Rappahannock County", "latitude": 38.6762, "longitude": -78.1564 },
+
+  {
+    "name": "Staunton River State Park",
+    "latitude": 36.699,
+    "longitude": -78.6772
+  },
+
+  {
+    "name": "Steinaker State Park",
+    "latitude": 40.5118,
+    "longitude": -109.524
+  },
+
+  { "name": "Torrey, UT", "latitude": 38.2957, "longitude": -111.2736 },
+
+  {
+    "name": "Waterton Lakes National Park",
+    "latitude": 49.0836,
+    "longitude": -113.9187
+  },
+
+  {
+    "name": "Weber County North Fork Park",
+    "latitude": 41.3709,
+    "longitude": -111.9073
+  },
+
+  { "name": "Westcliffe, CO", "latitude": 38.1353, "longitude": -105.4733 }
+]
