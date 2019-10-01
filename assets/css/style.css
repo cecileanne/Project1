@@ -76,6 +76,7 @@ input.valid[type="number"]:focus {
 }
 table {
   font-size: 17px;
+  margin-bottom: 50px;
 }
 
 /* removing the "spinner" buttons from number input */
