@@ -29,8 +29,8 @@ $(document).ready(function() {
     $("#currentUsers").text("Current Users: " + snap.numChildren());
   });
 
-  // Setting up Google Map
-  const googleAPIKey = `AIzaSyDhRxWepgfYEccL4qPA1KmR-hmA6ICUSBw`;
+  // Setting up Google Map===========================================================
+  const googleAPIKey = `AIzaSyCPktNOMzEJ01ZNEcSRBZR-l9vZRiXDywQ`;
   $(`#mapid`).empty().append(`<iframe
   width="400"
   height="400"
@@ -345,7 +345,9 @@ $(document).ready(function() {
                     "data-userlat": cityLat
                   })
                   .addClass("tableRow");
-                $("tbody").prepend(row);
+                if (distanceMiles < 1000) {
+                  $("tbody").prepend(row);
+                }
               }); // closes weather .then;
             });
           } // closes probability if conditional
