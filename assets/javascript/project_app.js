@@ -30,31 +30,31 @@ $(document).ready(function() {
   });
 
   // Setting up Google Map===========================================================
-  const googleAPIKey = `AIzaSyCPktNOMzEJ01ZNEcSRBZR-l9vZRiXDywQ`;
-  $(`#mapid`).empty().append(`<iframe
-  width="400"
-  height="400"
-  frameborder="0" style="border:0"
-  src = 'https://www.google.com/maps/embed/v1/place?key=${googleAPIKey}
-    &q=Evanston+IL' allowfullscreen>
-    
-</iframe>`);
+  //   const googleAPIKey = `AIzaSyCPktNOMzEJ01ZNEcSRBZR-l9vZRiXDywQ`;
+  //   $(`#mapid`).empty().append(`<iframe
+  //   width="400"
+  //   height="400"
+  //   frameborder="0" style="border:0"
+  //   src = 'https://www.google.com/maps/embed/v1/place?key=${googleAPIKey}
+  //     &q=Evanston+IL' allowfullscreen>
 
-  // // Setting up the Leaflet Map (Evanston starting point, zoom at 13)
-  // var map = L.map("mapid").setView([42.0451, -87.6877], 13);
+  // </iframe>`);
 
-  // // Adding a tile layer to the map:
-  // L.tileLayer(
-  //   "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
-  //   {
-  //     attribution:
-  //       'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-  //     maxZoom: 18,
-  //     id: "mapbox.streets",
-  //     accessToken:
-  //       "pk.eyJ1IjoiY2VjaWxlYW5uZXNpc29uIiwiYSI6ImNrMGpxbG5taTA5cnAzYm90dHBwbHM0bmsifQ.S8GKddmQ1_kd1f_gRBt7yQ"
-  //   }
-  // ).addTo(map);
+  // Setting up the Leaflet Map (Evanston starting point, zoom at 13)
+  var map = L.map("mapid").setView([42.0451, -87.6877], 13);
+
+  // Adding a tile layer to the map:
+  L.tileLayer(
+    "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}",
+    {
+      attribution:
+        'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 18,
+      id: "mapbox.streets",
+      accessToken:
+        "pk.eyJ1IjoiY2VjaWxlYW5uZXNpc29uIiwiYSI6ImNrMGpxbG5taTA5cnAzYm90dHBwbHM0bmsifQ.S8GKddmQ1_kd1f_gRBt7yQ"
+    }
+  ).addTo(map);
 
   // Array of Dark Sky objects:
 
@@ -377,20 +377,29 @@ $(document).ready(function() {
         .parent()
         .data("userlat")
     };
+    var marker = L.marker([rowData.destLat, rowData.destLon]).addTo(map);
+    marker.bindPopup("<b>Click Me for Directions</b>.").openPopup();
+    marker.on("click", function() {
+      document.location.href = `https://www.google.com/maps/dir/${rowData.userLat},${rowData.userLon}/${rowData.destLat},${rowData.destLon}/data=!3m1!4b1!4m2!4m1!3e0`;
+    });
+    map = L.map("mapid", {
+      center: [rowData.destLat, rowData.destLon],
+      zoom: 13
+    });
 
     // Setting up GoogleMaps directions
-    console.log(`looking for map`);
-    $(`#mapid`).empty().append(`<iframe
-    width="400"
-    height="400"
-    frameborder="0" style="border:0"
-    src= "https://www.google.com/maps/embed/v1/directions
-    ?key=${googleAPIKey}
-    &origin=${rowData.userLat},${rowData.userLon}
-    &destination=${rowData.destLat},${rowData.destLon}">
-      
-  </iframe>`);
-    console.log(`map call done wheres it at?`);
+    //   console.log(`looking for map`);
+    //   $(`#mapid`).empty().append(`<iframe
+    //   width="400"
+    //   height="400"
+    //   frameborder="0" style="border:0"
+    //   src= "https://www.google.com/maps/embed/v1/directions
+    //   ?key=${googleAPIKey}
+    //   &origin=${rowData.userLat},${rowData.userLon}
+    //   &destination=${rowData.destLat},${rowData.destLon}">
+
+    // </iframe>`);
+    //   console.log(`map call done wheres it at?`);
 
     // document.location.href = `https://www.google.com/maps/dir/${rowData.userLat},${rowData.userLon}/${rowData.destLat},${rowData.destLon}/data=!3m1!4b1!4m2!4m1!3e0`;
   }); // closes tableRow .on click
