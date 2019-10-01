@@ -382,7 +382,7 @@ $(document).ready(function() {
     width="400"
     height="400"
     frameborder="0" style="border:0"
-    src= "https://cors-anywhere.herokuapp.com/https://www.google.com/maps/embed/v1/directions
+    src= "https://www.google.com/maps/embed/v1/directions
     ?key=${googleAPIKey}
     &origin=${rowData.userLat},${rowData.userLon}
     &destination=${rowData.destLat},${rowData.destLon}">
