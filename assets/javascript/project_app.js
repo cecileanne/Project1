@@ -244,14 +244,24 @@ $(document).ready(function() {
   ];
 
   // event listener - user input on form submit
+  function loadBar() {
+    if (isLoading == true) {
+      $(".progress").show();
+    } else if (isLoading == false) {
+      $(".progress").hide();
+    }
+  }
   let isLoading = false;
+  loadBar();
+  console.log(isLoading + "1st isLoading");
   $(document).on("submit", "#cityForm", function() {
     event.preventDefault();
 
     if (isLoading === false) {
       const citySearch = $("#city").val();
       isLoading = true;
-
+      loadBar();
+      console.log(isLoading + "2nd isLoading");
       let loadCount = 0;
       darkSkyPlaces.forEach(element => {
         let weatherData = "";
@@ -350,17 +360,20 @@ $(document).ready(function() {
                 }
               }); // closes weather .then;
             });
+            loadBar();
           } // closes probability if conditional
           if (auroraCount === 0) {
             $("#noGoMessage").html(
               "<h5>Sorry, solar activity isn't high enough to be visible.</h5>"
             );
+            isLoading = false;
           }
         }); //closes aurora .then
       }); // closes forEach
+
+      console.log(isLoading + "3rd isLoading");
     } // closes isLoading conditional
   }); // closes form submit listener
-
   // second event listener:  each table row will run a "directions" call on click
   $(document).on("click", ".tableRow", function() {
     const rowData = {
@@ -378,15 +391,12 @@ $(document).ready(function() {
         .data("userlat")
     };
     var marker = L.marker([rowData.destLat, rowData.destLon]).addTo(map);
+
     marker.bindPopup("<b>Click Me for Directions</b>.").openPopup();
     marker.on("click", function() {
       document.location.href = `https://www.google.com/maps/dir/${rowData.userLat},${rowData.userLon}/${rowData.destLat},${rowData.destLon}/data=!3m1!4b1!4m2!4m1!3e0`;
     });
-    map = L.map("mapid", {
-      center: [rowData.destLat, rowData.destLon],
-      zoom: 13
-    });
-
+    map.panTo(marker);
     // Setting up GoogleMaps directions
     //   console.log(`looking for map`);
     //   $(`#mapid`).empty().append(`<iframe
