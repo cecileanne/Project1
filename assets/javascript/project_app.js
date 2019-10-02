@@ -304,6 +304,9 @@ $(document).ready(function() {
                 const distanceMiles = Math.floor(
                   directionResults.routes[0].distance * 0.000621371
                 );
+                console.log(directionResults.routes[0]);
+                // WON'T SHOW ROUTE?? UNDEFINED????
+                console.log(directionResults.routes[0].legs["0"].steps);
 
                 const row = $("<tr>");
                 //  City
