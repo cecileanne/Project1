@@ -270,115 +270,119 @@ $(document).ready(function() {
         $.ajax({
           url: auroraQueryURL,
           method: "GET"
-        }).then(auroraResults => {
-          let auroraCount = 0;
-          let probability = auroraResults.probability.highest.value;
-          if (probability > 20) {
-            auroraCount++;
-            // 5 day weather forecast:
-            const weatherAPIKey = "743ab863a8fe63b9814fb432f2017098";
-            const weatherQueryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${element.latitude}&lon=${element.longitude}&APPID=${weatherAPIKey}`;
-            $.ajax({
-              url: weatherQueryURL,
-              dataType: "json",
-              type: "GET"
-            }).then(weatherResults => {
-              loadCount++;
-              weatherData = weatherResults;
-
-              if (loadCount >= darkSkyPlaces.length) {
-                isLoading = false;
-              }
-            });
-            $.ajax({
-              url: `https://api.openweathermap.org/data/2.5/forecast?zip=${citySearch}&APPID=${weatherAPIKey}`,
-              dataType: "json",
-              type: "GET"
-            }).then(userWeather => {
-              const cityLat = userWeather.city.coord.lat;
-              const cityLon = userWeather.city.coord.lon;
-
+        })
+          .then(auroraResults => {
+            let auroraCount = 0;
+            let probability = auroraResults.probability.highest.value;
+            if (probability > 20) {
+              auroraCount++;
+              // 5 day weather forecast:
+              const weatherAPIKey = "743ab863a8fe63b9814fb432f2017098";
+              const weatherQueryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${element.latitude}&lon=${element.longitude}&APPID=${weatherAPIKey}`;
               $.ajax({
-                url: `https://api.mapbox.com/directions/v5/mapbox/driving/${cityLon},${cityLat};${element.longitude},${element.latitude}?access_token=pk.eyJ1IjoiY2VjaWxlYW5uZXNpc29uIiwiYSI6ImNrMGpxbG5taTA5cnAzYm90dHBwbHM0bmsifQ.S8GKddmQ1_kd1f_gRBt7yQ`
-              }).then(directionResults => {
-                const distanceMiles = Math.floor(
-                  directionResults.routes[0].distance * 0.000621371
-                );
-                console.log(directionResults.routes[0]);
-                // WON'T SHOW ROUTE?? UNDEFINED????
-                console.log(directionResults.routes[0].legs["0"].steps);
+                url: weatherQueryURL,
+                dataType: "json",
+                type: "GET"
+              }).then(weatherResults => {
+                loadCount++;
+                weatherData = weatherResults;
 
-                const row = $("<tr>");
-                //  City
-                const location = $("<td>");
-                location.text(element.name); //location variable
-                row.append(location);
-
-                //  Distance from start location
-                const distanceFromStart = $("<td>");
-                distanceFromStart.text(distanceMiles); //distanceFromStart variable
-                row.append(distanceFromStart);
-
-                // viewing probablity
-                const viewProbability = $("<td>");
-                viewProbability.text(probability); //viewProbability variable
-                row.append(viewProbability);
-
-                // cloudiness % - NOTE there was an error when weather didn't return weatherData.list
-                const cloudiness = $("<td>");
-                const cloudPercentage = weatherData.list[0].clouds.all;
-
-                if (cloudPercentage <= 15) {
-                  cloudiness.text(cloudPercentage + " (clear)");
-                } else {
-                  cloudiness.text(cloudPercentage + " (too cloudy)");
+                if (loadCount >= darkSkyPlaces.length) {
+                  isLoading = false;
                 }
-                row.append(cloudiness);
+              });
+              $.ajax({
+                url: `https://api.openweathermap.org/data/2.5/forecast?zip=${citySearch}&APPID=${weatherAPIKey}`,
+                dataType: "json",
+                type: "GET"
+              }).then(userWeather => {
+                const cityLat = userWeather.city.coord.lat;
+                const cityLon = userWeather.city.coord.lon;
 
-                // sunset - sunrise
-                const bestTime = $("<td>");
-                const sunTime = moment
-                  .unix(weatherData.city.sunrise)
-                  .format(`HH:MM`);
-                // .subtract(2, "hours"); not working :(
-                const sunsetTime = moment
-                  .unix(weatherData.city.sunset)
-                  .format(`HH:MM`);
-                // .add(2, "hours"); not working :(
-                bestTime.text(`${sunsetTime} - ${sunTime}`); //bestTime variable
-                row.append(bestTime);
+                $.ajax({
+                  url: `https://api.mapbox.com/directions/v5/mapbox/driving/${cityLon},${cityLat};${element.longitude},${element.latitude}?access_token=pk.eyJ1IjoiY2VjaWxlYW5uZXNpc29uIiwiYSI6ImNrMGpxbG5taTA5cnAzYm90dHBwbHM0bmsifQ.S8GKddmQ1_kd1f_gRBt7yQ`
+                }).then(directionResults => {
+                  const distanceMiles = Math.floor(
+                    directionResults.routes[0].distance * 0.000621371
+                  );
+                  console.log(directionResults.routes[0]);
+                  // WON'T SHOW ROUTE?? UNDEFINED????
+                  console.log(directionResults.routes[0].legs["0"].steps);
 
-                // row needs data attributes and classes for directions event
+                  const row = $("<tr>");
+                  //  City
+                  const location = $("<td>");
+                  location.text(element.name); //location variable
+                  row.append(location);
 
-                $(row)
-                  .attr({
-                    "data-destlon": element.longitude,
-                    "data-destlat": element.latitude,
-                    "data-userlon": cityLon,
-                    "data-userlat": cityLat
-                  })
-                  .addClass("tableRow");
-                if (distanceMiles < 1000) {
-                  $("tbody").prepend(row);
-                }
-              }); // closes weather .then;
-            });
-            loadBar();
-          } // closes probability if conditional
-          if (auroraCount === 0) {
-            $("#noGoMessage").html(
-              "<h5>Sorry, solar activity isn't high enough to be visible.</h5>"
-            );
-            isLoading = false;
-          }
-        }); //closes aurora .then
+                  //  Distance from start location
+                  const distanceFromStart = $("<td>");
+                  distanceFromStart.text(distanceMiles); //distanceFromStart variable
+                  row.append(distanceFromStart);
+
+                  // viewing probablity
+                  const viewProbability = $("<td>");
+                  viewProbability.text(probability); //viewProbability variable
+                  row.append(viewProbability);
+
+                  // cloudiness % - NOTE there was an error when weather didn't return weatherData.list
+                  const cloudiness = $("<td>");
+                  const cloudPercentage = weatherData.list[0].clouds.all;
+
+                  if (cloudPercentage <= 15) {
+                    cloudiness.text(cloudPercentage + " (clear)");
+                  } else {
+                    cloudiness.text(cloudPercentage + " (too cloudy)");
+                  }
+                  row.append(cloudiness);
+
+                  // sunset - sunrise
+                  const bestTime = $("<td>");
+                  const sunTime = moment
+                    .unix(weatherData.city.sunrise)
+                    .format(`HH:MM`);
+                  // .subtract(2, "hours"); not working :(
+                  const sunsetTime = moment
+                    .unix(weatherData.city.sunset)
+                    .format(`HH:MM`);
+                  // .add(2, "hours"); not working :(
+                  bestTime.text(`${sunsetTime} - ${sunTime}`); //bestTime variable
+                  row.append(bestTime);
+
+                  // row needs data attributes and classes for directions event
+
+                  $(row)
+                    .attr({
+                      "data-destlon": element.longitude,
+                      "data-destlat": element.latitude,
+                      "data-userlon": cityLon,
+                      "data-userlat": cityLat
+                    })
+                    .addClass("tableRow");
+                  if (distanceMiles < 1000) {
+                    $("tbody").prepend(row);
+                  }
+                }); // closes weather .then;
+              });
+            } // closes probability if conditional
+            if (auroraCount === 0) {
+              $("#noGoMessage").html(
+                "<h5>Sorry, solar activity isn't high enough to be visible.</h5>"
+              );
+              isLoading = false;
+              loadBar();
+            }
+          })
+          .always(function() {
+            console.log("FINALLY");
+          }); //closes aurora .then
       }); // closes forEach
 
       console.log(isLoading + "3rd isLoading");
     } // closes isLoading conditional
   }); // closes form submit listener
   // second event listener:  each table row will run a "directions" call on click
-  $(document).on("click", ".tableRow", function() {
+  $(document).on("click", ".tableRow", function(event) {
     const rowData = {
       destLon: $(event.target)
         .parent()
@@ -395,11 +399,11 @@ $(document).ready(function() {
     };
     var marker = L.marker([rowData.destLat, rowData.destLon]).addTo(map);
 
-    marker.bindPopup("<b>Click Me for Directions</b>.").openPopup();
+    marker.bindPopup(`<b>${event.target.textContent}</b>.`).openPopup();
     marker.on("click", function() {
       document.location.href = `https://www.google.com/maps/dir/${rowData.userLat},${rowData.userLon}/${rowData.destLat},${rowData.destLon}/data=!3m1!4b1!4m2!4m1!3e0`;
     });
-    map.panTo(marker);
+    map.panTo([rowData.destLat, rowData.destLon]);
     // Setting up GoogleMaps directions
     //   console.log(`looking for map`);
     //   $(`#mapid`).empty().append(`<iframe
