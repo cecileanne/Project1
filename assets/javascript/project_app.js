@@ -29,17 +29,6 @@ $(document).ready(function() {
     $("#currentUsers").text("Current Users: " + snap.numChildren());
   });
 
-  // Setting up Google Map===========================================================
-  //   const googleAPIKey = `AIzaSyCPktNOMzEJ01ZNEcSRBZR-l9vZRiXDywQ`;
-  //   $(`#mapid`).empty().append(`<iframe
-  //   width="400"
-  //   height="400"
-  //   frameborder="0" style="border:0"
-  //   src = 'https://www.google.com/maps/embed/v1/place?key=${googleAPIKey}
-  //     &q=Evanston+IL' allowfullscreen>
-
-  // </iframe>`);
-
   // Setting up the Leaflet Map (Evanston starting point, zoom at 13)
   var map = L.map("mapid").setView([42.0451, -87.6877], 13);
 
@@ -253,7 +242,7 @@ $(document).ready(function() {
   }
   let isLoading = false;
   loadBar();
-  console.log(isLoading + "1st isLoading");
+
   $(document).on("submit", "#cityForm", function() {
     event.preventDefault();
 
@@ -261,17 +250,18 @@ $(document).ready(function() {
       const citySearch = $("#city").val();
       isLoading = true;
       loadBar();
-      console.log(isLoading + "2nd isLoading");
+
       let loadCount = 0;
       darkSkyPlaces.forEach(element => {
         let weatherData = "";
         // running the
         auroraQueryURL = `https://api.auroras.live/v1/?type=all&lat=${element.latitude}&long=${element.longitude}&forecast=false&threeday=false`;
-        $.ajax({
-          url: auroraQueryURL,
-          method: "GET"
-        })
-          .then(auroraResults => {
+        //$.when to help control load bar
+        $.when(
+          $.ajax({
+            url: auroraQueryURL,
+            method: "GET"
+          }).then(auroraResults => {
             let auroraCount = 0;
             let probability = auroraResults.probability.highest.value;
             if (probability > 20) {
@@ -305,9 +295,6 @@ $(document).ready(function() {
                   const distanceMiles = Math.floor(
                     directionResults.routes[0].distance * 0.000621371
                   );
-                  console.log(directionResults.routes[0]);
-                  // WON'T SHOW ROUTE?? UNDEFINED????
-                  console.log(directionResults.routes[0].legs["0"].steps);
 
                   const row = $("<tr>");
                   //  City
@@ -372,13 +359,9 @@ $(document).ready(function() {
               isLoading = false;
               loadBar();
             }
-          })
-          .always(function() {
-            console.log("FINALLY");
-          }); //closes aurora .then
+          }) //closes aurora .then
+        ).done(loadBar()); //ends load bar
       }); // closes forEach
-
-      console.log(isLoading + "3rd isLoading");
     } // closes isLoading conditional
   }); // closes form submit listener
   // second event listener:  each table row will run a "directions" call on click
@@ -399,25 +382,14 @@ $(document).ready(function() {
     };
     var marker = L.marker([rowData.destLat, rowData.destLon]).addTo(map);
 
-    marker.bindPopup(`<b>${event.target.textContent}</b>.`).openPopup();
+    marker
+      .bindPopup(
+        `<b>${event.target.textContent}</b>.<br>Click me for directions`
+      )
+      .openPopup();
     marker.on("click", function() {
       document.location.href = `https://www.google.com/maps/dir/${rowData.userLat},${rowData.userLon}/${rowData.destLat},${rowData.destLon}/data=!3m1!4b1!4m2!4m1!3e0`;
     });
     map.panTo([rowData.destLat, rowData.destLon]);
-    // Setting up GoogleMaps directions
-    //   console.log(`looking for map`);
-    //   $(`#mapid`).empty().append(`<iframe
-    //   width="400"
-    //   height="400"
-    //   frameborder="0" style="border:0"
-    //   src= "https://www.google.com/maps/embed/v1/directions
-    //   ?key=${googleAPIKey}
-    //   &origin=${rowData.userLat},${rowData.userLon}
-    //   &destination=${rowData.destLat},${rowData.destLon}">
-
-    // </iframe>`);
-    //   console.log(`map call done wheres it at?`);
-
-    // document.location.href = `https://www.google.com/maps/dir/${rowData.userLat},${rowData.userLon}/${rowData.destLat},${rowData.destLon}/data=!3m1!4b1!4m2!4m1!3e0`;
   }); // closes tableRow .on click
 }); // closes $(document).ready
