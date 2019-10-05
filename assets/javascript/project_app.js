@@ -256,7 +256,6 @@ $(document).ready(function() {
         let weatherData = "";
         // running the
         auroraQueryURL = `https://api.auroras.live/v1/?type=all&lat=${element.latitude}&long=${element.longitude}&forecast=false&threeday=false`;
-        //$.when to help control load bar
 
         ajaxes.push(
           $.ajax({
@@ -363,6 +362,7 @@ $(document).ready(function() {
           })
         ); //closes aurora .then
       }); // closes forEach
+      //$.when to help control load bar
       $.when(...ajaxes).done(() => {
         isLoading = false;
         loadBar();
