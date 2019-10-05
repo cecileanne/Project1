@@ -265,7 +265,7 @@ $(document).ready(function() {
           }).then(auroraResults => {
             let auroraCount = 0;
             let probability = auroraResults.probability.highest.value;
-            if (probability > 20) {
+            if (probability > 80) {
               auroraCount++;
               // 5 day weather forecast:
               const weatherAPIKey = "743ab863a8fe63b9814fb432f2017098";
