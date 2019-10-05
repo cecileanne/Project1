@@ -231,8 +231,7 @@ $(document).ready(function() {
 
     { name: "Westcliffe, CO", latitude: 38.1353, longitude: -105.4733 }
   ];
-
-  // event listener - user input on form submit
+  //progress bar function
   function loadBar() {
     if (isLoading == true) {
       $(".progress").show();
@@ -243,6 +242,7 @@ $(document).ready(function() {
   let isLoading = false;
   loadBar();
 
+  // event listener - user input on form submit
   $(document).on("submit", "#cityForm", function() {
     event.preventDefault();
 
@@ -250,14 +250,15 @@ $(document).ready(function() {
       const citySearch = $("#city").val();
       isLoading = true;
       loadBar();
-
+      const ajaxes = [];
       let loadCount = 0;
       darkSkyPlaces.forEach(element => {
         let weatherData = "";
         // running the
         auroraQueryURL = `https://api.auroras.live/v1/?type=all&lat=${element.latitude}&long=${element.longitude}&forecast=false&threeday=false`;
         //$.when to help control load bar
-        $.when(
+
+        ajaxes.push(
           $.ajax({
             url: auroraQueryURL,
             method: "GET"
@@ -359,9 +360,13 @@ $(document).ready(function() {
               isLoading = false;
               loadBar();
             }
-          }) //closes aurora .then
-        ).done(loadBar()); //ends load bar
+          })
+        ); //closes aurora .then
       }); // closes forEach
+      $.when(...ajaxes).done(() => {
+        isLoading = false;
+        loadBar();
+      });
     } // closes isLoading conditional
   }); // closes form submit listener
   // second event listener:  each table row will run a "directions" call on click
@@ -380,16 +385,19 @@ $(document).ready(function() {
         .parent()
         .data("userlat")
     };
+    //Adds a marker to the map at the location choosen from the table
     var marker = L.marker([rowData.destLat, rowData.destLon]).addTo(map);
-
+    // marker has a pop with the location name and Instructions for directions
     marker
       .bindPopup(
         `<b>${event.target.textContent}</b>.<br>Click me for directions`
       )
       .openPopup();
+    //if marker is clicked, user is taken to google maps with the driving route already displayed
     marker.on("click", function() {
       document.location.href = `https://www.google.com/maps/dir/${rowData.userLat},${rowData.userLon}/${rowData.destLat},${rowData.destLon}/data=!3m1!4b1!4m2!4m1!3e0`;
     });
+    //keeps the marker centered on screen
     map.panTo([rowData.destLat, rowData.destLon]);
   }); // closes tableRow .on click
 }); // closes $(document).ready
