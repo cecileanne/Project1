@@ -231,127 +231,146 @@ $(document).ready(function() {
 
     { name: "Westcliffe, CO", latitude: 38.1353, longitude: -105.4733 }
   ];
+  //progress bar function
+  function loadBar() {
+    if (isLoading == true) {
+      $(".progress").show();
+    } else if (isLoading == false) {
+      $(".progress").hide();
+    }
+  }
+  let isLoading = false;
+  loadBar();
 
   // event listener - user input on form submit
-  let isLoading = false;
   $(document).on("submit", "#cityForm", function() {
     event.preventDefault();
 
     if (isLoading === false) {
       const citySearch = $("#city").val();
       isLoading = true;
-      console.log(isLoading);
+      loadBar();
+      const ajaxes = [];
       let loadCount = 0;
       darkSkyPlaces.forEach(element => {
         let weatherData = "";
         // running the
         auroraQueryURL = `https://api.auroras.live/v1/?type=all&lat=${element.latitude}&long=${element.longitude}&forecast=false&threeday=false`;
-        $.ajax({
-          url: auroraQueryURL,
-          method: "GET"
-        }).then(auroraResults => {
-          let auroraCount = 0;
-          let probability = auroraResults.probability.highest.value;
-          if (probability > 20) {
-            auroraCount++;
-            // 5 day weather forecast:
-            const weatherAPIKey = "743ab863a8fe63b9814fb432f2017098";
-            const weatherQueryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${element.latitude}&lon=${element.longitude}&APPID=${weatherAPIKey}`;
-            $.ajax({
-              url: weatherQueryURL,
-              dataType: "json",
-              type: "GET"
-            }).then(weatherResults => {
-              loadCount++;
-              weatherData = weatherResults;
-              console.log(weatherResults);
-              if (loadCount >= darkSkyPlaces.length) {
-                isLoading = false;
-                console.log(isLoading);
-              }
-            });
-            $.ajax({
-              url: `https://api.openweathermap.org/data/2.5/forecast?zip=${citySearch}&APPID=${weatherAPIKey}`,
-              dataType: "json",
-              type: "GET"
-            }).then(userWeather => {
-              const cityLat = userWeather.city.coord.lat;
-              const cityLon = userWeather.city.coord.lon;
-              console.log(userWeather);
+        //$.when to help control load bar
+
+        ajaxes.push(
+          $.ajax({
+            url: auroraQueryURL,
+            method: "GET"
+          }).then(auroraResults => {
+            let auroraCount = 0;
+            let probability = auroraResults.probability.highest.value;
+            if (probability > 20) {
+              auroraCount++;
+              // 5 day weather forecast:
+              const weatherAPIKey = "743ab863a8fe63b9814fb432f2017098";
+              const weatherQueryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${element.latitude}&lon=${element.longitude}&APPID=${weatherAPIKey}`;
               $.ajax({
-                url: `https://api.mapbox.com/directions/v5/mapbox/driving/${cityLon},${cityLat};${element.longitude},${element.latitude}?access_token=pk.eyJ1IjoiY2VjaWxlYW5uZXNpc29uIiwiYSI6ImNrMGpxbG5taTA5cnAzYm90dHBwbHM0bmsifQ.S8GKddmQ1_kd1f_gRBt7yQ`
-              }).then(directionResults => {
-                console.log(directionResults);
-                const distanceMiles = Math.floor(
-                  directionResults.routes[0].distance * 0.000621371
-                );
+                url: weatherQueryURL,
+                dataType: "json",
+                type: "GET"
+              }).then(weatherResults => {
+                loadCount++;
+                weatherData = weatherResults;
 
-                const row = $("<tr>");
-                //  City
-                const location = $("<td>");
-                location.text(element.name); //location variable
-                row.append(location);
-
-                //  Distance from start location
-                const distanceFromStart = $("<td>");
-                distanceFromStart.text(distanceMiles); //distanceFromStart variable
-                row.append(distanceFromStart);
-
-                // viewing probablity
-                const viewProbability = $("<td>");
-                viewProbability.text(probability); //viewProbability variable
-                row.append(viewProbability);
-
-                // cloudiness %
-                const cloudiness = $("<td>");
-                const cloudPercentage = weatherData.list[0].clouds.all;
-
-                if (cloudPercentage <= 15) {
-                  cloudiness.text(cloudPercentage + " (clear)");
-                } else {
-                  cloudiness.text(cloudPercentage + " (too cloudy)");
+                if (loadCount >= darkSkyPlaces.length) {
+                  isLoading = false;
                 }
-                row.append(cloudiness);
+              });
+              $.ajax({
+                url: `https://api.openweathermap.org/data/2.5/forecast?zip=${citySearch}&APPID=${weatherAPIKey}`,
+                dataType: "json",
+                type: "GET"
+              }).then(userWeather => {
+                const cityLat = userWeather.city.coord.lat;
+                const cityLon = userWeather.city.coord.lon;
 
-                // sunset - sunrise
-                const bestTime = $("<td>");
-                const sunTime = moment
-                  .unix(weatherData.city.sunrise)
-                  .format(`HH:MM`);
-                // .subtract(2, "hours"); not working :(
-                const sunsetTime = moment
-                  .unix(weatherData.city.sunset)
-                  .format(`HH:MM`);
-                // .add(2, "hours"); not working :(
-                bestTime.text(`${sunsetTime} - ${sunTime}`); //bestTime variable
-                row.append(bestTime);
+                $.ajax({
+                  url: `https://api.mapbox.com/directions/v5/mapbox/driving/${cityLon},${cityLat};${element.longitude},${element.latitude}?access_token=pk.eyJ1IjoiY2VjaWxlYW5uZXNpc29uIiwiYSI6ImNrMGpxbG5taTA5cnAzYm90dHBwbHM0bmsifQ.S8GKddmQ1_kd1f_gRBt7yQ`
+                }).then(directionResults => {
+                  const distanceMiles = Math.floor(
+                    directionResults.routes[0].distance * 0.000621371
+                  );
 
-                // row needs data attributes and classes for directions event
+                  const row = $("<tr>");
+                  //  City
+                  const location = $("<td>");
+                  location.text(element.name); //location variable
+                  row.append(location);
 
-                $(row)
-                  .attr({
-                    "data-destlon": element.longitude,
-                    "data-destlat": element.latitude,
-                    "data-userlon": cityLon,
-                    "data-userlat": cityLat
-                  })
-                  .addClass("tableRow");
-                $("tbody").prepend(row);
-              }); // closes weather .then;
-            });
-          } // closes probability if conditional
-          if (auroraCount === 0) {
-            $("#noGoMessage").html(
-              "<h5>Sorry, solar activity isn't high enough to be visible.</h5>"
-            );
-          }
-        }); //closes aurora .then
+                  //  Distance from start location
+                  const distanceFromStart = $("<td>");
+                  distanceFromStart.text(distanceMiles); //distanceFromStart variable
+                  row.append(distanceFromStart);
+
+                  // viewing probablity
+                  const viewProbability = $("<td>");
+                  viewProbability.text(probability); //viewProbability variable
+                  row.append(viewProbability);
+
+                  // cloudiness % - NOTE there was an error when weather didn't return weatherData.list
+                  const cloudiness = $("<td>");
+                  const cloudPercentage = weatherData.list[0].clouds.all;
+
+                  if (cloudPercentage <= 15) {
+                    cloudiness.text(cloudPercentage + " (clear)");
+                  } else {
+                    cloudiness.text(cloudPercentage + " (too cloudy)");
+                  }
+                  row.append(cloudiness);
+
+                  // sunset - sunrise
+                  const bestTime = $("<td>");
+                  const sunTime = moment
+                    .unix(weatherData.city.sunrise)
+                    .format(`HH:MM`);
+                  // .subtract(2, "hours"); not working :(
+                  const sunsetTime = moment
+                    .unix(weatherData.city.sunset)
+                    .format(`HH:MM`);
+                  // .add(2, "hours"); not working :(
+                  bestTime.text(`${sunsetTime} - ${sunTime}`); //bestTime variable
+                  row.append(bestTime);
+
+                  // row needs data attributes and classes for directions event
+
+                  $(row)
+                    .attr({
+                      "data-destlon": element.longitude,
+                      "data-destlat": element.latitude,
+                      "data-userlon": cityLon,
+                      "data-userlat": cityLat
+                    })
+                    .addClass("tableRow");
+                  if (distanceMiles < 1000) {
+                    $("tbody").prepend(row);
+                  }
+                }); // closes weather .then;
+              });
+            } // closes probability if conditional
+            if (auroraCount === 0) {
+              $("#noGoMessage").html(
+                "<h5>Sorry, solar activity isn't high enough to be visible.</h5>"
+              );
+              isLoading = false;
+              loadBar();
+            }
+          })
+        ); //closes aurora .then
       }); // closes forEach
+      $.when(...ajaxes).done(() => {
+        isLoading = false;
+        loadBar();
+      });
     } // closes isLoading conditional
   }); // closes form submit listener
-
   // second event listener:  each table row will run a "directions" call on click
-  $(document).on("click", ".tableRow", function() {
+  $(document).on("click", ".tableRow", function(event) {
     const rowData = {
       destLon: $(event.target)
         .parent()
@@ -366,7 +385,19 @@ $(document).ready(function() {
         .parent()
         .data("userlat")
     };
-
-    document.location.href = `https://www.google.com/maps/dir/${rowData.userLat},${rowData.userLon}/${rowData.destLat},${rowData.destLon}/data=!3m1!4b1!4m2!4m1!3e0`;
+    //Adds a marker to the map at the location choosen from the table
+    var marker = L.marker([rowData.destLat, rowData.destLon]).addTo(map);
+    // marker has a pop with the location name and Instructions for directions
+    marker
+      .bindPopup(
+        `<b>${event.target.textContent}</b>.<br>Click me for directions`
+      )
+      .openPopup();
+    //if marker is clicked, user is taken to google maps with the driving route already displayed
+    marker.on("click", function() {
+      document.location.href = `https://www.google.com/maps/dir/${rowData.userLat},${rowData.userLon}/${rowData.destLat},${rowData.destLon}/data=!3m1!4b1!4m2!4m1!3e0`;
+    });
+    //keeps the marker centered on screen
+    map.panTo([rowData.destLat, rowData.destLon]);
   }); // closes tableRow .on click
 }); // closes $(document).ready
